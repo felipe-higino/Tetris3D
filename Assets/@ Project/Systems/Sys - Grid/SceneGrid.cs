@@ -22,7 +22,6 @@ namespace Systems.GridSystem
         [SerializeField]
         private float cellSize = 1f;
 
-        //componentization over inheritance is good
         public GridSystem GridSystem { get; private set; }
         private Vector2[][] CenterPositions;
 
