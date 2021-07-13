@@ -5,16 +5,17 @@ using UnityEngine;
 
 namespace Systems.GridSystem
 {
+    [Serializable]
+    public struct Cell
+    {
+        public bool IsFilled { set; get; }
+    }
+
     public class GridSystem
     {
         private int RowsCount { get; }
         private int ColumnsCount { get; }
         private Cell[][] cellsMatrix;
-
-        public struct Cell
-        {
-            public bool IsFilled { set; get; }
-        }
 
         public GridSystem(int rows, int columns)
         {

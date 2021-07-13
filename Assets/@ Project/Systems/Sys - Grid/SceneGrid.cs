@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,11 +59,18 @@ namespace Systems.GridSystem
         [Header("Gizmos")]
         [Space(15)]
         [SerializeField]
-        private Color centerGizmosColor;
+        private Color centerGizmosColor1;
+        [SerializeField]
+        private Color centerGizmosColor2;
+
         [SerializeField]
         private Color horizontalLinesGizmosColor;
         [SerializeField]
         private Color verticalLinesGizmosColor;
+        [SerializeField]
+        private float boxGizmoSizeMultiplier = 0.1f;
+        [SerializeField]
+        public Vector2Int[] indexesWithColor2;
 
         //grid gizmos
         private void OnDrawGizmos()
@@ -92,12 +100,23 @@ namespace Systems.GridSystem
                 horizontalLineOriginPosition += (verticalDirection * cellSize);
             }
 
-            Gizmos.color = centerGizmosColor;
-            foreach (var posList in GetCenterPositions())
+
+            var rows = GetCenterPositions();
+            for (int i = 0; i < rows.Length; i++)
             {
-                foreach (var position in posList)
+                var column = rows[i];
+                for (int j = 0; j < column.Length; j++)
                 {
-                    Gizmos.DrawSphere(position, 0.1f);
+                    var position = column[j];
+                    if (indexesWithColor2.Contains(new Vector2Int(i, j)))
+                    {
+                        Gizmos.color = centerGizmosColor2;
+                    }
+                    else
+                    {
+                        Gizmos.color = centerGizmosColor1;
+                    }
+                    Gizmos.DrawCube(position, new Vector3(1, 1, 1) * boxGizmoSizeMultiplier);
                 }
             }
         }
