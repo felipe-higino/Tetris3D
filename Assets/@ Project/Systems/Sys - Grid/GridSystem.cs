@@ -7,9 +7,9 @@ namespace Systems.GridSystem
 {
     public class GridSystem
     {
-        private int rowsCount;
-        private int columnsCount;
-        public Cell[][] CellsMatrix { get; private set; }
+        private int RowsCount { get; }
+        private int ColumnsCount { get; }
+        private Cell[][] cellsMatrix;
 
         public struct Cell
         {
@@ -18,16 +18,16 @@ namespace Systems.GridSystem
 
         public GridSystem(int rows, int columns)
         {
-            this.rowsCount = rows;
-            this.columnsCount = columns;
+            this.RowsCount = rows;
+            this.ColumnsCount = columns;
             _InitMatrix(rows, columns);
         }
 
-        public void SetCellState(int positionX, int positionY, bool isFilled)
+        public void SetCellState(int row, int column, bool isFilled)
         {
             try
             {
-                CellsMatrix[positionX][positionY].IsFilled = isFilled;
+                cellsMatrix[row][column].IsFilled = isFilled;
             }
             catch (Exception e)
             {
@@ -35,37 +35,49 @@ namespace Systems.GridSystem
             }
         }
 
+        public void GetCellState(int row, int column, out bool isFilled)
+        {
+            try
+            {
+                isFilled = cellsMatrix[row][column].IsFilled;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+                isFilled = false;
+            }
+        }
+
         public List<int> GetCompletedRows()
         {
-            List<int> completedRows = new List<int>();
+            var completedRows = new List<int>();
 
-            for (int rowIndex = 0; rowIndex < CellsMatrix.Length; rowIndex++)
+            for (int rowIndex = 0; rowIndex < RowsCount; rowIndex++)
             {
-                var row = CellsMatrix[rowIndex];
-
                 var isRowComplete = false;
-                for (int columnIndex = 0; columnIndex < row.Length; columnIndex++)
+                for (int columnIndex = 0; columnIndex < ColumnsCount; columnIndex++)
                 {
-                    var cell = row[columnIndex];
+                    var cell = cellsMatrix[rowIndex][columnIndex];
 
                     if (!cell.IsFilled)
                         break;
-                    if (columnIndex == row.Length)
+                    if (columnIndex == ColumnsCount - 1)
                         isRowComplete = true;
                 }
 
                 if (isRowComplete)
                     completedRows.Add(rowIndex);
             }
+
             return completedRows;
         }
 
         private void _InitMatrix(int rows, int columns)
         {
-            CellsMatrix = new Cell[rowsCount][];
-            for (int row = 0; row < rowsCount; row++)
+            cellsMatrix = new Cell[RowsCount][];
+            for (int row = 0; row < RowsCount; row++)
             {
-                CellsMatrix[row] = new Cell[columnsCount];
+                cellsMatrix[row] = new Cell[ColumnsCount];
             }
         }
 
