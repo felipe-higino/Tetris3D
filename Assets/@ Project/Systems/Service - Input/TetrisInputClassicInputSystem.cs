@@ -24,25 +24,21 @@ namespace Systems.TetrisInput
             {
                 if (MoveRight)
                 {
-                    // Debug.Log("move right");
                     OnMoveRight?.Invoke();
                 }
                 else if (MoveLeft)
                 {
-                    // Debug.Log("move left");
                     OnMoveLeft?.Invoke();
                 }
             }
 
             if (ClockwiseInput)
             {
-                // Debug.Log("clockwise");
                 OnRotateClockwise?.Invoke();
             }
 
             if (DashInput)
             {
-                // Debug.Log("dash");
                 OnDash?.Invoke();
             }
         }

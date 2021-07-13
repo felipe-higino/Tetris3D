@@ -6,7 +6,7 @@ namespace Systems.TetrisInput
 {
     public class InputPrinter : MonoBehaviour
     {
-        private void Awake()
+        private void Start()
         {
             var inputService = FindObjectOfType<A_TetrisInput>();
             if (null == inputService)
