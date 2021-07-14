@@ -11,13 +11,13 @@ namespace Systems.GridSystem
         public bool IsFilled { set; get; }
     }
 
-    public class GridSystem
+    public class GridSystemComponent
     {
-        private int RowsCount { get; }
-        private int ColumnsCount { get; }
+        public int RowsCount { get; }
+        public int ColumnsCount { get; }
         private Cell[][] cellsMatrix;
 
-        public GridSystem(int rows, int columns)
+        public GridSystemComponent(int rows, int columns)
         {
             this.RowsCount = rows;
             this.ColumnsCount = columns;

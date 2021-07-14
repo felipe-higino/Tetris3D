@@ -23,12 +23,12 @@ namespace Systems.GridSystem
         [SerializeField]
         private float cellSize = 1f;
 
-        public GridSystem GridSystem { get; private set; }
+        public GridSystemComponent GridSystem { get; private set; }
         private Vector2[][] CenterPositions;
 
         private void Awake()
         {
-            GridSystem = new GridSystem(rowsCount, columnsCount);
+            GridSystem = new GridSystemComponent(rowsCount, columnsCount);
         }
 
         private Vector3[][] GetCenterPositions()

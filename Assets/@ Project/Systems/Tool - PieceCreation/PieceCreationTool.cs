@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Systems.TetrisPiece;
 using Systems.GridSystem;
+using Systems.TetrisGame;
 
 namespace CreationTools
 {
@@ -17,7 +18,6 @@ namespace CreationTools
         [SerializeField]
         private bool changeInGrid = false;
 
-        private enum Degrees { _0, _90, _180, _270 }
         [SerializeField]
         private Degrees degreeToCopy;
         [SerializeField]

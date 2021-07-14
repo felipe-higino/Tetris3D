@@ -12,7 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bff701d7b36f5e42a61e61f5e789a65, type: 3}
   m_Name: O
   m_EditorClassIdentifier: 
-  value0degree: 0
-  value90degree: 0
-  value180degree: 0
-  value270degree: 0
+  pieceFullBox: {x: 4, y: 4}
+  positions0degree:
+  - {x: 0, y: 3}
+  - {x: 0, y: 2}
+  - {x: 1, y: 3}
+  - {x: 1, y: 2}
+  positions90degree:
+  - {x: 0, y: 3}
+  - {x: 0, y: 2}
+  - {x: 1, y: 3}
+  - {x: 1, y: 2}
+  positions180degree:
+  - {x: 0, y: 3}
+  - {x: 0, y: 2}
+  - {x: 1, y: 3}
+  - {x: 1, y: 2}
+  positions270degree:
+  - {x: 0, y: 3}
+  - {x: 0, y: 2}
+  - {x: 1, y: 3}
+  - {x: 1, y: 2}

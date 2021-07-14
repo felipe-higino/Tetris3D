@@ -14,7 +14,7 @@ public class GridSystemTests
     [TestCase(1, 1)]
     public void CellFill(int row, int column)
     {
-        var grid = new GridSystem(2, 2);
+        var grid = new GridSystemComponent(2, 2);
 
         grid.SetCellState(row, column, true);
         grid.GetCellState(row, column, out var isFilled);
@@ -29,7 +29,7 @@ public class GridSystemTests
     [TestCase(21, ExpectedResult = false)]
     public bool LineCheck(int rowFullFill)
     {
-        var grid = new GridSystem(10, 20);
+        var grid = new GridSystemComponent(10, 20);
 
         for (int columnIndex = 0; columnIndex < 20; columnIndex++)
         {
