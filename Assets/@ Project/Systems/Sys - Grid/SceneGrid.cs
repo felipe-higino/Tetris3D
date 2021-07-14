@@ -108,7 +108,7 @@ namespace Systems.GridSystem
                 for (int j = 0; j < column.Length; j++)
                 {
                     var position = column[j];
-                    if (indexesWithColor2.Contains(new Vector2Int(i, j)))
+                    if (indexesWithColor2.Contains(new Vector2Int(j, i)))
                     {
                         Gizmos.color = centerGizmosColor2;
                     }

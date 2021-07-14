@@ -50,6 +50,7 @@ namespace Systems.TetrisPiece
     //     }
     // }
 
+    [Serializable]
     [CreateAssetMenu(fileName = "SO_TetrisPiece", menuName = "Tetris3D/SO_TetrisPiece", order = 0)]
     public class SO_TetrisPiece : ScriptableObject
     {

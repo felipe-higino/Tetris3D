@@ -433,11 +433,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273167, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: indexesWithColor2.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273167, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: indexesWithColor2.Array.data[0].x
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273167, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: indexesWithColor2.Array.data[0].y
@@ -445,7 +445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273167, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: indexesWithColor2.Array.data[1].x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273167, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: indexesWithColor2.Array.data[1].y
@@ -453,3 +453,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
+--- !u!1 &1934777184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9091605857606273166, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
+  m_PrefabInstance: {fileID: 1934777183}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1934777185 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9091605857606273167, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
+  m_PrefabInstance: {fileID: 1934777183}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934777184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16dddb0579db7c4429a4a2460fd52793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1934777186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934777184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5833c4b55e409a40abbb44f22a4dbf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeInSO: 0
+  tetrisPiece: {fileID: 0}
+  changeInGrid: 0
+  degreeToCopy: 0
+  sceneGrid: {fileID: 1934777185}
+  positions0degree:
+  - {x: 2, y: 1}
+  positions90degree: []
+  positions180degree: []
+  positions270degree: []

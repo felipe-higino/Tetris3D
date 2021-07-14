@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bff701d7b36f5e42a61e61f5e789a65, type: 3}
   m_Name: I
   m_EditorClassIdentifier: 
-  value0degree: 3840
-  value90degree: 8738
-  value180degree: 240
-  value270degree: 17476
+  positions0degree:
+  - {x: 2, y: 1}
+  positions90degree: []
+  positions180degree: []
+  positions270degree: []
