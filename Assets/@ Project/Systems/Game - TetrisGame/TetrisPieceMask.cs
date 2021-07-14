@@ -135,7 +135,6 @@ namespace Systems.TetrisGame
                     originalPivot.x + cellsLocalPositions[i].x,
                     originalPivot.y + cellsLocalPositions[i].y);
                 cellsInGridList.Add(cell);
-                Debug.Log(cell);
             }
 
             var cellsInGrid = cellsInGridList.ToArray();

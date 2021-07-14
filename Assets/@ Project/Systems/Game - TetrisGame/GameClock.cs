@@ -7,7 +7,7 @@ using Systems.TetrisPiece;
 
 namespace Systems.TetrisGame
 {
-    public class TetrisGameGridComponent : MonoBehaviour
+    public class GameClock : MonoBehaviour
     {
         public event Action OnClockTick;
 

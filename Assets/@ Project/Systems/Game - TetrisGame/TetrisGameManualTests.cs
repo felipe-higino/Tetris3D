@@ -41,88 +41,95 @@ namespace Systems.TetrisGame
 
         #region mask tests --------------------------------------------------------------
 
-        private Vector2Int[] maskCells;
-        private Vector2Int piecePivot;
-        private Degrees rotationMemory;
+        // private Vector2Int[] maskCells;
+        // private Vector2Int piecePivot;
+        // private Degrees rotationMemory;
 
-        private int GetNextRotationIndex()
-        {
-            var index = (int)rotationMemory + 1;
-            if (index > 3)
-                index = 0;
-            if (index < 0)
-                index = 3;
+        // private int GetNextRotationIndex()
+        // {
+        //     var index = (int)rotationMemory + 1;
+        //     if (index > 3)
+        //         index = 0;
+        //     if (index < 0)
+        //         index = 3;
 
-            return index;
-        }
+        //     return index;
+        // }
+
+        [SerializeField]
+        private PiecesManager piecesManager;
 
         public void SpawnMask()
         {
-            PieceSpawner.SpawnTetrisPiece(tetrisPiece, maskGrid,
-                out var pieceCells, out var pivotCell);
+            piecesManager.SpawnPiece(tetrisPiece);
+            // PieceSpawner.SpawnTetrisPiece(tetrisPiece, maskGrid,
+            //     out var pieceCells, out var pivotCell);
 
-            maskCells = pieceCells;
-            piecePivot = pivotCell;
-            rotationMemory = Degrees._0;
+            // maskCells = pieceCells;
+            // piecePivot = pivotCell;
+            // rotationMemory = Degrees._0;
 
-            //gizmos
-            maskGrid.indexesWithColor2 = pieceCells;
+            // //gizmos
+            // maskGrid.indexesWithColor2 = pieceCells;
         }
 
         public void MoveMaskHorizontally(bool isRight)
         {
-            tetrisPieceMask.MoveMaskHorizontally(maskCells, isRight,
-                out var wallCollision, out var deslocation);
+            piecesManager.MovePieceHorizontally(isRight);
+            // tetrisPieceMask.MoveMaskHorizontally(maskCells, isRight,
+            //     out var wallCollision, out var deslocation);
 
-            //deslocating pivot and body
-            for (int i = 0; i < maskCells.Length; i++)
-            {
-                maskCells[i] = new Vector2Int(
-                    maskCells[i].x + deslocation.x,
-                    maskCells[i].y + deslocation.y);
-            }
-            piecePivot = new Vector2Int(
-                    piecePivot.x + deslocation.x,
-                    piecePivot.y + deslocation.y);
+            // //deslocating pivot and body
+            // for (int i = 0; i < maskCells.Length; i++)
+            // {
+            //     maskCells[i] = new Vector2Int(
+            //         maskCells[i].x + deslocation.x,
+            //         maskCells[i].y + deslocation.y);
+            // }
+            // piecePivot = new Vector2Int(
+            //         piecePivot.x + deslocation.x,
+            //         piecePivot.y + deslocation.y);
 
-            //gizmos
-            maskGrid.indexesWithColor2 = maskCells;
+            // //gizmos
+            // maskGrid.indexesWithColor2 = maskCells;
         }
 
         public void MoveMaskDown()
         {
-            tetrisPieceMask.MoveMaskDown(maskCells,
-                out var deslocation, out var didMovementEnded);
+            piecesManager.MovePieceDown();
+            // tetrisPieceMask.MoveMaskDown(maskCells,
+            //     out var deslocation, out var didMovementEnded);
 
-            //deslocating pivot and body
-            for (int i = 0; i < maskCells.Length; i++)
-            {
-                maskCells[i] = new Vector2Int(
-                    maskCells[i].x + deslocation.x,
-                    maskCells[i].y + deslocation.y);
-            }
-            piecePivot = new Vector2Int(
-                    piecePivot.x + deslocation.x,
-                    piecePivot.y + deslocation.y);
+            // //deslocating pivot and body
+            // for (int i = 0; i < maskCells.Length; i++)
+            // {
+            //     maskCells[i] = new Vector2Int(
+            //         maskCells[i].x + deslocation.x,
+            //         maskCells[i].y + deslocation.y);
+            // }
+            // piecePivot = new Vector2Int(
+            //         piecePivot.x + deslocation.x,
+            //         piecePivot.y + deslocation.y);
 
-            //gizmos
-            maskGrid.indexesWithColor2 = maskCells;
+            // //gizmos
+            // maskGrid.indexesWithColor2 = maskCells;
         }
 
         public void RotateMask()
         {
-            var requiredRotation = (Degrees)GetNextRotationIndex();
-            tetrisPieceMask.RotateMask(maskCells, piecePivot, tetrisPiece,
-                requiredRotation, out var newCells, out var newPivot,
-                out var didChangeRotation);
+            piecesManager.RotatePieceClockwise(tetrisPiece);
+            // var requiredRotation = (Degrees)GetNextRotationIndex();
+            // tetrisPieceMask.RotateMask(maskCells, piecePivot, tetrisPiece,
+            //     requiredRotation, out var newCells, out var newPivot,
+            //     out var didChangeRotation);
 
-            maskCells = newCells;
-            piecePivot = newPivot;
-            if (didChangeRotation)
-                rotationMemory = requiredRotation;
+            // maskCells = newCells;
+            // piecePivot = newPivot;
+            // if (didChangeRotation)
+            //     rotationMemory = requiredRotation;
 
-            //gizmos
-            maskGrid.indexesWithColor2 = maskCells;
+            // //gizmos
+            // maskGrid.indexesWithColor2 = maskCells;
         }
 
         #endregion mask tests ----------------------------------------------------------------------
