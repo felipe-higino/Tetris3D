@@ -553,6 +553,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -4
       objectReference: {fileID: 0}
+    - target: {fileID: 7169189415274617871, guid: f94d7a0a8bd1e3241a99eba57e658864, type: 3}
+      propertyPath: degreeToCopy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169189416013572527, guid: f94d7a0a8bd1e3241a99eba57e658864, type: 3}
+      propertyPath: degreeToCopy
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7169189416802876252, guid: f94d7a0a8bd1e3241a99eba57e658864, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1166,7 +1174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd5f8ed66568214aa0f131307ed31a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tetrisGameGridComponent: {fileID: 1393228838}
   tetrisPieceMask: {fileID: 1393228840}
   tetrisPiece: {fileID: 11400000, guid: a094877c2ac4367419972dc4d0c129ae, type: 2}
   filledGrid: {fileID: 1402531259}
