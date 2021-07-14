@@ -36,7 +36,8 @@ namespace Systems.GridSystem
             }
         }
 
-        public void GetCellState(int row, int column, out bool isFilled, out bool outOfBounds)
+        public void GetCellState(int row, int column,
+            out bool isFilled, out bool outOfBounds)
         {
             var fillCheck = false;
             var outOfBoundsCheck = false;
@@ -47,7 +48,7 @@ namespace Systems.GridSystem
             }
             catch (IndexOutOfRangeException e)
             {
-                Debug.LogError(e.Message);
+                Debug.Log(e.Message);
                 outOfBoundsCheck = true;
             }
             catch (Exception e)
