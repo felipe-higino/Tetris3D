@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Systems.GridSystem;
 
+#if UNITY_EDITOR
+using CreationTools;
+#endif
+
 namespace Systems.TetrisPiece
 {
     [Serializable]
@@ -14,15 +18,37 @@ namespace Systems.TetrisPiece
         private Vector2Int pieceFullBox;
 
         [SerializeField]
-        public Vector2Int[] positions0degree;
+        private Vector2Int[] positions0degree;
         [SerializeField]
-        public Vector2Int[] positions90degree;
+        private Vector2Int[] positions90degree;
         [SerializeField]
-        public Vector2Int[] positions180degree;
+        private Vector2Int[] positions180degree;
         [SerializeField]
-        public Vector2Int[] positions270degree;
+        private Vector2Int[] positions270degree;
+
+
+        public Vector2Int[] Positions0degree => positions0degree;
+        public Vector2Int[] Positions90degree => positions90degree;
+        public Vector2Int[] Positions180degree => positions180degree;
+        public Vector2Int[] Positions270degree => positions270degree;
 
 
         public Vector2Int PieceFullBox => pieceFullBox;
+
+#if UNITY_EDITOR
+
+        [SerializeField]
+        private PieceCreationTool creationTool;
+
+        [ContextMenu("Copy Data From Creation Tool")]
+        public void CopyDataFromCreationTool()
+        {
+            positions0degree = creationTool.positions0degree;
+            positions90degree = creationTool.positions90degree;
+            positions180degree = creationTool.positions180degree;
+            positions270degree = creationTool.positions270degree;
+        }
+#endif
+
     }
 }

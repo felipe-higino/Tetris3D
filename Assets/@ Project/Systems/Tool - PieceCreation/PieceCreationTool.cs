@@ -11,7 +11,6 @@ namespace CreationTools
 {
     public class PieceCreationTool : MonoBehaviour
     {
-
         [SerializeField]
         private SO_TetrisPiece tetrisPiece;
 
@@ -23,14 +22,10 @@ namespace CreationTools
         [SerializeField]
         private SceneGrid sceneGrid;
 
-        [SerializeField]
-        private Vector2Int[] positions0degree;
-        [SerializeField]
-        private Vector2Int[] positions90degree;
-        [SerializeField]
-        private Vector2Int[] positions180degree;
-        [SerializeField]
-        private Vector2Int[] positions270degree;
+        public Vector2Int[] positions0degree;
+        public Vector2Int[] positions90degree;
+        public Vector2Int[] positions180degree;
+        public Vector2Int[] positions270degree;
 
         private void OnValidate()
         {
@@ -60,16 +55,6 @@ namespace CreationTools
                 }
             }
         }
-
-        [ContextMenu("Update Scriptable Object")]
-        private void UpdateSO()
-        {
-            tetrisPiece.positions0degree = positions0degree;
-            tetrisPiece.positions90degree = positions90degree;
-            tetrisPiece.positions180degree = positions180degree;
-            tetrisPiece.positions270degree = positions270degree;
-        }
-
     }
 
 }
