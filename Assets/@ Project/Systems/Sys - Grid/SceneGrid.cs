@@ -26,6 +26,24 @@ namespace Systems.GridSystem
         public GridSystemComponent GridSystem { get; private set; }
         private Vector2[][] CenterPositions;
 
+        public void UpdateGizmosWithSolidCells()
+        {
+#if UNITY_EDITOR
+            var indexesToHighlight = new List<Vector2Int>();
+            for (int row = 0; row < GridSystem.RowsCount; row++)
+            {
+                for (int column = 0; column < GridSystem.ColumnsCount; column++)
+                {
+                    this.GridSystem.GetCellState(row, column,
+                        out var isFilled, out var _);
+                    if (isFilled)
+                        indexesToHighlight.Add(new Vector2Int(column, row));
+                }
+            }
+            indexesWithColor2 = indexesToHighlight.ToArray();
+#endif
+        }
+
         private void Awake()
         {
             GridSystem = new GridSystemComponent(rowsCount, columnsCount);

@@ -9,7 +9,7 @@ namespace Systems.TetrisGame
 {
     public class PiecesManager : MonoBehaviour
     {
-        public event Action<Vector2Int[]> SolidifyPiece;
+        public event Action<Vector2Int[]> OnPieceRequireSolidify;
 
         [SerializeField]
         private SceneGrid piecesGrid;
@@ -58,6 +58,11 @@ namespace Systems.TetrisGame
             piecePivot = new Vector2Int(
                     piecePivot.x + deslocation.x,
                     piecePivot.y + deslocation.y);
+
+            if (didMovementEnded)
+            {
+                OnPieceRequireSolidify?.Invoke(pieceCells);
+            }
 
             //gizmos
             UpdateGridGizmos();

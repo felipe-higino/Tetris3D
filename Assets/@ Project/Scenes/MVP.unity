@@ -494,7 +494,7 @@ MonoBehaviour:
   filledGrid: {fileID: 1402531259}
   movablePieceGrid: {fileID: 2077554707}
   maskGrid: {fileID: 906492820}
-  piecesManager: {fileID: 0}
+  piecesManager: {fileID: 1393228837}
 --- !u!4 &871012064
 Transform:
   m_ObjectHideFlags: 0
@@ -1047,6 +1047,7 @@ GameObject:
   - component: {fileID: 1393228838}
   - component: {fileID: 1393228840}
   - component: {fileID: 1393228837}
+  - component: {fileID: 1393228841}
   m_Layer: 0
   m_Name: TetrisGame
   m_TagString: Untagged
@@ -1108,6 +1109,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filledGrid: {fileID: 1402531259}
+--- !u!114 &1393228841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393228836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4884c981bd7d6e4784e2a8ea0e577df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameClock: {fileID: 1393228838}
+  piecesManager: {fileID: 1393228837}
+  solidPiecesGrid: {fileID: 1402531259}
 --- !u!1 &1402531258
 GameObject:
   m_ObjectHideFlags: 0
@@ -1119,7 +1135,7 @@ GameObject:
   - component: {fileID: 1402531260}
   - component: {fileID: 1402531259}
   m_Layer: 0
-  m_Name: Filled Grid
+  m_Name: Solid Pieces Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1804,7 +1820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 448ccdecfa054a64aa6d6f39269f2592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputs: {fileID: 0}
+  inputs: {fileID: 2119536325}
 --- !u!1 &2136015142
 GameObject:
   m_ObjectHideFlags: 0
