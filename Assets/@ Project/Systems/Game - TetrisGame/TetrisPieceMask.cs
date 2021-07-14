@@ -116,11 +116,10 @@ namespace Systems.TetrisGame
         //----------------------------------- ROTATION MOVEMENT
         public void RotateMask(Vector2Int[] originalCells, Vector2Int originalPivot,
             SO_TetrisPiece tetrisPiece, Degrees degree,
-            out Vector2Int[] newCells, out Vector2Int newPivot)
+            out Vector2Int[] newCells, out Vector2Int newPivot, out bool didChangeRotation)
         {
-            //TODO: RELATIVE DESLOCATION
-            //Switch statement C#8
-            var relativePosition = degree switch
+            //Switch expression C#8
+            var cellsLocalPositions = degree switch
             {
                 Degrees._0 => tetrisPiece.Positions0degree,
                 Degrees._90 => tetrisPiece.Positions90degree,
@@ -129,6 +128,18 @@ namespace Systems.TetrisGame
                 _ => originalCells
             };
 
+            var cellsInGridList = new List<Vector2Int>();
+            for (int i = 0; i < cellsLocalPositions.Length; i++)
+            {
+                var cell = new Vector2Int(
+                    originalPivot.x + cellsLocalPositions[i].x,
+                    originalPivot.y + cellsLocalPositions[i].y);
+                cellsInGridList.Add(cell);
+                Debug.Log(cell);
+            }
+
+            var cellsInGrid = cellsInGridList.ToArray();
+
             var checkCollidedWithRightWall = false;
             var checkCollidedWithLeftWall = false;
             var checkCollidedWithFloor = false;
@@ -136,10 +147,10 @@ namespace Systems.TetrisGame
             var lastCellBeforeRightWall = filledGrid.GridSystem.ColumnsCount - 1;
             var indexExceedingLeftWall = 0;
             var indexExceedingRightWall = 0;
-            for (int i = 0; i < relativePosition.Length; i++)
+            for (int i = 0; i < cellsInGrid.Length; i++)
             {
-                filledGrid.GridSystem.GetCellState(
-                        relativePosition[i].y, relativePosition[i].x,
+                var cell = cellsInGrid[i];
+                filledGrid.GridSystem.GetCellState(cell.y, cell.x,
                         out var isFilled, out var outOfBounds);
 
                 if (isFilled)
@@ -149,22 +160,22 @@ namespace Systems.TetrisGame
 
                 if (outOfBounds)
                 {
-                    if (relativePosition[i].y < 0)
+                    if (cell.y < 0)
                     {
                         checkCollidedWithFloor = true;
                     }
 
-                    if (relativePosition[i].x < 0)
+                    if (cell.x < 0)
                     {
                         checkCollidedWithLeftWall = true;
-                        var index = relativePosition[i].x;
+                        var index = cell.x;
                         if (index < indexExceedingLeftWall)
                             indexExceedingLeftWall = index;
                     }
-                    else if (relativePosition[i].x > lastCellBeforeRightWall)
+                    else if (cell.x > lastCellBeforeRightWall)
                     {
                         checkCollidedWithRightWall = true;
-                        var index = relativePosition[i].x;
+                        var index = cell.x;
                         if (index > indexExceedingRightWall)
                             indexExceedingRightWall = index;
                     }
@@ -175,43 +186,52 @@ namespace Systems.TetrisGame
             if (checkCollidedWithLeftWall)
             {
                 //deslocate right
-                for (int i = 0; i < relativePosition.Length; i++)
+                for (int i = 0; i < cellsInGrid.Length; i++)
                 {
-                    relativePosition[i] = new Vector2Int(
-                        relativePosition[i].x + indexExceedingLeftWall,
-                        relativePosition[i].y);
+                    cellsInGrid[i] = new Vector2Int(
+                        cellsInGrid[i].x - indexExceedingLeftWall,
+                        cellsInGrid[i].y);
                 }
-                newCells = relativePosition;
+                newCells = cellsInGrid;
 
                 newPivot = new Vector2Int(
-                        originalPivot.x + indexExceedingLeftWall,
+                        originalPivot.x - indexExceedingLeftWall,
                         originalPivot.y);
+
+                didChangeRotation = true;
             }
             else if (checkCollidedWithRightWall)
             {
                 //deslocate left
-                for (int i = 0; i < relativePosition.Length; i++)
+                var amountToDeslocate = indexExceedingRightWall - lastCellBeforeRightWall;
+                for (int i = 0; i < cellsInGrid.Length; i++)
                 {
-                    relativePosition[i] = new Vector2Int(
-                        relativePosition[i].x + indexExceedingRightWall,
-                        relativePosition[i].y);
+                    cellsInGrid[i] = new Vector2Int(
+                        cellsInGrid[i].x - amountToDeslocate,
+                        cellsInGrid[i].y);
                 }
-                newCells = relativePosition;
+                newCells = cellsInGrid;
                 newPivot = new Vector2Int(
-                        originalPivot.x + indexExceedingRightWall,
+                        originalPivot.x - amountToDeslocate,
                         originalPivot.y);
+
+                didChangeRotation = true;
             }
             else if (checkCollidedWithAnotherPiece || checkCollidedWithFloor)
             {
                 //maintain old cells, disallow rotation
                 newCells = originalCells;
                 newPivot = originalPivot;
+
+                didChangeRotation = false;
             }
             else
             {
                 //no ocurrences, allow rotation without operations
-                newCells = relativePosition;
+                newCells = cellsInGrid;
                 newPivot = originalPivot;
+
+                didChangeRotation = true;
             }
 
         }

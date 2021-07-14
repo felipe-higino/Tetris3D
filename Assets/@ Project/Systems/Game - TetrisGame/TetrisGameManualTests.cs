@@ -44,19 +44,16 @@ namespace Systems.TetrisGame
         private Vector2Int[] maskCells;
         private Vector2Int piecePivot;
         private Degrees rotationMemory;
-        private int RotationLoop
-        {
-            get => (int)rotationMemory;
-            set
-            {
-                var index = value;
-                if (index > 3)
-                    index = 0;
-                if (index < 0)
-                    index = 3;
 
-                rotationMemory = (Degrees)index;
-            }
+        private int GetNextRotationIndex()
+        {
+            var index = (int)rotationMemory + 1;
+            if (index > 3)
+                index = 0;
+            if (index < 0)
+                index = 3;
+
+            return index;
         }
 
         public void SpawnMask()
@@ -64,9 +61,12 @@ namespace Systems.TetrisGame
             PieceSpawner.SpawnTetrisPiece(tetrisPiece, maskGrid,
                 out var pieceCells, out var pivotCell);
 
-            maskGrid.indexesWithColor2 = pieceCells.ToArray();
             maskCells = pieceCells;
+            piecePivot = pivotCell;
             rotationMemory = Degrees._0;
+
+            //gizmos
+            maskGrid.indexesWithColor2 = pieceCells;
         }
 
         public void MoveMaskHorizontally(bool isRight)
@@ -85,7 +85,8 @@ namespace Systems.TetrisGame
                     piecePivot.x + deslocation.x,
                     piecePivot.y + deslocation.y);
 
-            maskGrid.indexesWithColor2 = maskCells.ToArray();
+            //gizmos
+            maskGrid.indexesWithColor2 = maskCells;
         }
 
         public void MoveMaskDown()
@@ -103,17 +104,24 @@ namespace Systems.TetrisGame
             piecePivot = new Vector2Int(
                     piecePivot.x + deslocation.x,
                     piecePivot.y + deslocation.y);
-            maskGrid.indexesWithColor2 = maskCells.ToArray();
+
+            //gizmos
+            maskGrid.indexesWithColor2 = maskCells;
         }
 
         public void RotateMask()
         {
-            RotationLoop++;
+            var requiredRotation = (Degrees)GetNextRotationIndex();
             tetrisPieceMask.RotateMask(maskCells, piecePivot, tetrisPiece,
-                rotationMemory, out var newCells, out var newPivot);
+                requiredRotation, out var newCells, out var newPivot,
+                out var didChangeRotation);
 
             maskCells = newCells;
             piecePivot = newPivot;
+            if (didChangeRotation)
+                rotationMemory = requiredRotation;
+
+            //gizmos
             maskGrid.indexesWithColor2 = maskCells;
         }
 
