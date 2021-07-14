@@ -36,17 +36,28 @@ namespace Systems.GridSystem
             }
         }
 
-        public void GetCellState(int row, int column, out bool isFilled)
+        public void GetCellState(int row, int column, out bool isFilled, out bool outOfBounds)
         {
+            var fillCheck = false;
+            var outOfBoundsCheck = false;
+
             try
             {
-                isFilled = cellsMatrix[row][column].IsFilled;
+                fillCheck = cellsMatrix[row][column].IsFilled;
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Debug.LogError(e.Message);
+                outOfBoundsCheck = true;
             }
             catch (Exception e)
             {
-                Debug.Log(e.Message);
-                isFilled = false;
+                Debug.LogError(e.Message);
             }
+
+            isFilled = fillCheck;
+            outOfBounds = outOfBoundsCheck;
+
         }
 
         public List<int> GetCompletedRows()

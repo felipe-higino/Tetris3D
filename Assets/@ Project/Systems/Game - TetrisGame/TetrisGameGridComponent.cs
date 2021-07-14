@@ -24,10 +24,12 @@ namespace Systems.TetrisGame
         private List<Vector2Int> pieceCells;
         public IEnumerable<Vector2Int> PieceCells => pieceCells;
 
+
         public void SpawnTetrisPiece(SO_TetrisPiece tetrisPiece)
         {
             LetPieceFall();
 
+            this.ActualDegree = Degrees._0;
             this.ActiveTetrisPiece = tetrisPiece;
 
             var bounds = tetrisPiece.PieceFullBox;
@@ -84,13 +86,58 @@ namespace Systems.TetrisGame
         private enum Direction { Left, Right, Down }
         private void MoveObject(Direction direction)
         {
-            MoveMask();
+            MoveMaskDetectCollision(direction, out var hasColided);
             RenderMovement();
         }
 
-        private void MoveMask()
+        private void MoveMaskDetectCollision(Direction direction, out bool hasColided)
         {
             //TODO: move piece bounds and check collisions
+            // var maskPivot = PivotCell;
+            var maskCells = pieceCells;
+
+            Func<Vector2Int, Vector2Int> operation = (x) => x;
+            switch (direction)
+            {
+                case Direction.Left:
+                    operation = (vec) => new Vector2Int(vec.x - 1, vec.y);
+                    break;
+                case Direction.Right:
+                    operation = (vec) => new Vector2Int(vec.x + 1, vec.y);
+                    break;
+                case Direction.Down:
+                    operation = (vec) => new Vector2Int(vec.x, vec.y - 1);
+                    break;
+                default:
+                    break;
+            }
+
+            //moving mask cells and verifying collision
+            var hasCollidedCheck = false;
+            for (int i = 0; i < pieceCells.Count; i++)
+            {
+                pieceCells[i] = operation(pieceCells[i]);
+
+                GridSystem.GetCellState(pieceCells[i].y, pieceCells[i].x,
+                    out var isFilled, out var outOfBounds);
+
+                if (isFilled)
+                    hasCollidedCheck = true;
+
+                if (outOfBounds)
+                {
+                    if (pieceCells[i].y < 0)
+                    {
+                        //TODO: floor bounds collision
+                    }
+                    else
+                    {
+                        //TODO: wall bounds collision
+                    }
+                }
+            }
+
+            hasColided = hasCollidedCheck;
         }
 
         private void RenderMovement()

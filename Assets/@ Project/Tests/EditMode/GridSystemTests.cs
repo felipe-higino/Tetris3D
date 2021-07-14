@@ -17,7 +17,7 @@ public class GridSystemTests
         var grid = new GridSystemComponent(2, 2);
 
         grid.SetCellState(row, column, true);
-        grid.GetCellState(row, column, out var isFilled);
+        grid.GetCellState(row, column, out var isFilled, out var outOfBounds);
 
         Assert.IsTrue(isFilled);
     }
