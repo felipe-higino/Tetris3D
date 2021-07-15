@@ -12,8 +12,6 @@ namespace Systems.Pieces3D
         public SO_TetrisPiece TetrisPieceData => tetrisPieceData;
 
         private Vector3 originalPosition;
-        private Quaternion originalRotation;
-        private Vector3 originalScale;
 
         public Material GetMaterial()
         {
@@ -24,21 +22,41 @@ namespace Systems.Pieces3D
         {
             if (gameObject.activeSelf)
             {
-                transform.SetPositionAndRotation(transform.position + new Vector3(0, -1, 0), Quaternion.identity);
+                transform.localPosition = transform.localPosition + new Vector3(0, -1, 0);
             }
+        }
+
+        public void MoveHorizontally(int direction)
+        {
+            if (gameObject.activeSelf)
+            {
+                transform.localPosition = transform.localPosition + new Vector3(direction, 0, 0);
+            }
+        }
+
+        public void Rotate(Degrees degrees)
+        {
+            var angle = degrees switch
+            {
+                Degrees._0 => 0,
+                Degrees._90 => 90,
+                Degrees._180 => 180,
+                Degrees._270 => 270,
+                _ => 0
+            };
+
+            transform.localRotation = Quaternion.Euler(0, 0, -angle);
         }
 
         private void Awake()
         {
             originalPosition = transform.position;
-            originalRotation = transform.rotation;
-            originalScale = transform.localScale;
         }
 
         private void OnDisable()
         {
-            transform.SetPositionAndRotation(originalPosition, originalRotation);
-            transform.localScale = originalScale;
+            transform.localPosition = originalPosition;
+            transform.localRotation = Quaternion.identity;
         }
 
     }

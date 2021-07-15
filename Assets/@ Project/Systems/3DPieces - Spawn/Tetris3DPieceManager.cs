@@ -46,6 +46,8 @@ namespace Systems.Pieces3D
             gameRules.OnSpawnPiece += OnSpawnPiece;
 
             gameRules.PieceMovementManager.OnPieceMoveDown += OnPieceMoveDown;
+            gameRules.PieceMovementManager.OnPieceMoveHorizontally += OnPieceMoveHorizontally;
+            gameRules.PieceMovementManager.OnPieceRotate += OnPieceRotate;
         }
 
         private void OnDestroy()
@@ -55,7 +57,10 @@ namespace Systems.Pieces3D
             gameRules.OnSpawnPiece -= OnSpawnPiece;
 
             gameRules.PieceMovementManager.OnPieceMoveDown -= OnPieceMoveDown;
+            gameRules.PieceMovementManager.OnPieceMoveHorizontally -= OnPieceMoveHorizontally;
+            gameRules.PieceMovementManager.OnPieceRotate -= OnPieceRotate;
         }
+
 
         private void OnGameStart()
         {
@@ -89,6 +94,16 @@ namespace Systems.Pieces3D
         private void OnPieceMoveDown()
         {
             movable3DPieceSpawner.Current3DPiece?.MoveDown();
+        }
+
+        private void OnPieceMoveHorizontally(int direction)
+        {
+            movable3DPieceSpawner.Current3DPiece?.MoveHorizontally(direction);
+        }
+
+        private void OnPieceRotate(Degrees degree)
+        {
+            movable3DPieceSpawner.Current3DPiece?.Rotate(degree);
         }
     }
 
