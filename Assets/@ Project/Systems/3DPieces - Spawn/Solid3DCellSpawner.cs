@@ -21,6 +21,10 @@ namespace Systems.Pieces3D
 
         public Solid3DCell InstantiateSolidCell(SO_TetrisPiece tetrisPiece)
         {
+            if (!gameObject.activeSelf)
+            {
+                return null;
+            }
             var cell = SolidCellsPrefabs.FirstOrDefault(x => x.Data == tetrisPiece);
             if (null == cell)
                 return null;

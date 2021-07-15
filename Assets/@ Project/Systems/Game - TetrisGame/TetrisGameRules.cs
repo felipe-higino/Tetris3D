@@ -15,8 +15,9 @@ namespace Systems.TetrisGame
         public delegate void Del_Solidify(SO_TetrisPiece data, Vector2Int[] positions);
 
         public event Action OnGameStart;
-        public event Action<SO_TetrisPiece> OnSpawnPiece;
+        public event Action OnGridCompress;
         public event Del_Solidify OnSolidify;
+        public event Action<SO_TetrisPiece> OnSpawnPiece;
 
         public SO_TetrisPiece CurrentPiece { get; private set; }
 
@@ -113,59 +114,8 @@ namespace Systems.TetrisGame
             }
 
             //compress rows algorythm
-            for (int row = 0; row < rowsCount; row++)
-            {
-                var thisRowIsEmpty = true;
-                for (int x = 0; x < columnsCount; x++)
-                {
-                    solidPiecesGrid.GridSystem.GetCellState(row, x,
-                        out var isFilled, out var _);
-                    if (isFilled)
-                    {
-                        thisRowIsEmpty = false;
-                        break;
-                    }
-                }
-
-                if (thisRowIsEmpty)
-                {
-                    var targetRow = row;
-                    var nextFilledRow = -1;
-                    var filledYIndexes = new List<int>();
-
-                    for (int y = row + 1; y < rowsCount; y++)
-                    {
-                        var found = false;
-                        for (int column = 0; column < columnsCount; column++)
-                        {
-                            solidPiecesGrid.GridSystem.GetCellState(y, column,
-                                out var isFilled, out var _);
-                            if (isFilled)
-                            {
-                                found = true;
-                                filledYIndexes.Add(column);
-                            }
-                        }
-                        if (found)
-                        {
-                            nextFilledRow = y;
-                            break;
-                        }
-                    }
-
-                    if (nextFilledRow > -1)
-                    {
-                        foreach (var column in filledYIndexes)
-                        {
-                            solidPiecesGrid.GridSystem
-                                .SetCellState(nextFilledRow, column, false);
-
-                            solidPiecesGrid.GridSystem
-                                .SetCellState(targetRow, column, true);
-                        }
-                    }
-                }
-            }
+            solidPiecesGrid.GridSystem.CompressGrid();
+            OnGridCompress?.Invoke();
 
             solidPiecesGrid.UpdateGizmosWithSolidCells();
 

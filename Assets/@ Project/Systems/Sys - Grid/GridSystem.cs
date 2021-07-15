@@ -17,11 +17,26 @@ namespace Systems.GridSystem
         public int ColumnsCount { get; }
         private Cell[][] cellsMatrix;
 
+        public GridSystemComponent(GridSystemComponent toCopy)
+        {
+            this.RowsCount = toCopy.RowsCount;
+            this.ColumnsCount = toCopy.ColumnsCount;
+            _InitMatrix();
+
+            for (int row = 0; row < toCopy.RowsCount; row++)
+            {
+                for (int column = 0; column < toCopy.RowsCount; column++)
+                {
+                    cellsMatrix[row][column].IsFilled = toCopy.cellsMatrix[row][column].IsFilled;
+                }
+            }
+        }
+
         public GridSystemComponent(int rows, int columns)
         {
             this.RowsCount = rows;
             this.ColumnsCount = columns;
-            _InitMatrix(rows, columns);
+            _InitMatrix();
         }
 
         public void SetCellState(int row, int column, bool isFilled)
@@ -96,7 +111,7 @@ namespace Systems.GridSystem
             }
         }
 
-        private void _InitMatrix(int rows, int columns)
+        private void _InitMatrix()
         {
             cellsMatrix = new Cell[RowsCount][];
             for (int row = 0; row < RowsCount; row++)
