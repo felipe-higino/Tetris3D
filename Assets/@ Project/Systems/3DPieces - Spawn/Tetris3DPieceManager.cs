@@ -7,71 +7,68 @@ using Systems.GridSystem;
 using Systems.TetrisGame;
 using Systems.Tetris.Model;
 
-public class Tetris3DPieceManager : MonoBehaviour
+namespace Systems.Pieces3D
 {
-    [SerializeField]
-    private TetrisGameRules gameRules;
-
-    [SerializeField]
-    private PieceMovementManager pieceMovementManager;
-
-    [SerializeField]
-    private Transform pivot;
-
-    [SerializeField]
-    private SceneGrid filledGrid;
-
-    [SerializeField]
-    private List<Solid3DCell> SolidCellsPrefabs;
-    // [SerializeField]
-    // private List<>
-    //cached
-    private Vector3[][] _centerPositions = null;
-    private Vector3[][] CenterPositions
+    public class Tetris3DPieceManager : MonoBehaviour
     {
-        get
+        [Header("References")]
+        [Space(15)]
+        [SerializeField]
+        private TetrisGameRules gameRules;
+        [SerializeField]
+        private PieceMovementManager pieceMovementManager;
+
+        [Header("Spawners")]
+        [Space(15)]
+        [SerializeField]
+        private Solid3DCellSpawner solid3DCellSpawner;
+
+        [Header("Grid")]
+        [Space(15)]
+        [SerializeField]
+        private SceneGrid solidGrid;
+
+
+        //cached
+        private Vector3[][] _centerPositions = null;
+        private Vector3[][] CenterPositions
         {
-            if (null == _centerPositions)
-                _centerPositions = filledGrid.GetCenterPositions();
-            return _centerPositions;
+            get
+            {
+                if (null == _centerPositions)
+                    _centerPositions = solidGrid.GetCenterPositions();
+                return _centerPositions;
+            }
+        }
+
+        private Solid3DCell[,] SolidGrid;
+
+        private void Start()
+        {
+            var rows = solidGrid.GridSystem.RowsCount;
+            var columns = solidGrid.GridSystem.ColumnsCount;
+
+            SolidGrid = new Solid3DCell[rows, columns];
+
+            gameRules.OnSolidify += OnSolidify;
+        }
+
+        private void OnDestroy()
+        {
+            gameRules.OnSolidify -= OnSolidify;
+        }
+
+        private void OnSolidify(SO_TetrisPiece tetrisPiece, Vector2Int[] positions)
+        {
+            foreach (var position in positions)
+            {
+                var instance = solid3DCellSpawner.InstantiateSolidCell(tetrisPiece);
+                instance.transform.SetPositionAndRotation(CenterPositions[position.y][position.x], Quaternion.identity);
+                instance.gameObject.SetActive(true);
+                SolidGrid[position.y, position.x] = instance;
+            }
+
         }
     }
 
-    private Solid3DCell[,] SolidGrid;
-
-    private void Awake()
-    {
-        gameRules.OnSolidify += OnSolidify;
-        var rows = filledGrid.GridSystem.RowsCount;
-        var columns = filledGrid.GridSystem.ColumnsCount;
-
-        SolidGrid = new Solid3DCell[rows, columns];
-    }
-
-    private void OnDestroy()
-    {
-        gameRules.OnSolidify -= OnSolidify;
-    }
-
-    private void OnSolidify(SO_TetrisPiece tetrisPiece, Vector2Int[] positions)
-    {
-        var cell = SolidCellsPrefabs.FirstOrDefault(x => x.Data == tetrisPiece);
-        if (null == cell)
-            return;
-        foreach (var position in positions)
-        {
-            var instance = Instantiate(cell, CenterPositions[position.y][position.x], Quaternion.identity);
-            instance.transform.SetParent(pivot);
-            instance.gameObject.SetActive(true);
-
-            SolidGrid[position.y, position.x] = instance;
-        }
-
-    }
-
-    [ContextMenu("Build")]
-    private void Build()
-    {
-        SolidCellsPrefabs = GetComponentsInChildren<Solid3DCell>(true).ToList();
-    }
 }

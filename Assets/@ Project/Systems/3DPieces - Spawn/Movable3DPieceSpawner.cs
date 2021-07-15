@@ -4,18 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Systems.Tetris.Model;
-using Systems.Pieces3D.Data;
 
-namespace Systems.Pieces3D.Spawn
+namespace Systems.Pieces3D
 {
-    public class Spawn3DPiece : MonoBehaviour
+    public class Movable3DPieceSpawner : MonoBehaviour
     {
         [SerializeField]
         private Transform container;
         [SerializeField]
-        private TetrisPieceComponent[] cachedPieces;
+        private Movable3DPiece[] cachedPieces;
 
-        public TetrisPieceComponent SpawnPiece(SO_TetrisPiece pieceToSpawn)
+        public Movable3DPiece SpawnPiece(SO_TetrisPiece pieceToSpawn)
         {
             try
             {
@@ -35,7 +34,7 @@ namespace Systems.Pieces3D.Spawn
         [ContextMenu("Build")]
         private void Build()
         {
-            cachedPieces = GetComponentsInChildren<TetrisPieceComponent>(true);
+            cachedPieces = GetComponentsInChildren<Movable3DPiece>(true);
         }
     }
 }

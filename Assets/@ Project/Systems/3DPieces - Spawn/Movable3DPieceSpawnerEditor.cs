@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEditor;
 using Systems.Tetris.Model;
 
-namespace Systems.Pieces3D.Spawn
+namespace Systems.Pieces3D
 {
-    [CustomEditor(typeof(Spawn3DPiece))]
-    public class Spawn3DPieceEditor : Editor
+    [CustomEditor(typeof(Movable3DPieceSpawner))]
+    public class Movable3DPieceSpawnerEditor : Editor
     {
         public Object pieceToSpawn;
 
@@ -15,7 +15,7 @@ namespace Systems.Pieces3D.Spawn
         {
             if (Application.isPlaying)
             {
-                var obj = (Spawn3DPiece)target;
+                var obj = (Movable3DPieceSpawner)target;
 
                 pieceToSpawn = EditorGUILayout.ObjectField(pieceToSpawn, typeof(SO_TetrisPiece), true);
                 if (GUILayout.Button("Spawn"))

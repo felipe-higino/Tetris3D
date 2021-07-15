@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Systems.Tetris.Model;
 
-
-namespace Systems.Pieces3D.Data
+namespace Systems.Pieces3D
 {
-    public class TetrisPieceComponent : MonoBehaviour
+    public class Movable3DPiece : MonoBehaviour
     {
         [SerializeField]
         private SO_TetrisPiece tetrisPieceData;
@@ -16,6 +15,7 @@ namespace Systems.Pieces3D.Data
         {
             return GetComponentInChildren<Material>();
         }
-
     }
+
 }
+
