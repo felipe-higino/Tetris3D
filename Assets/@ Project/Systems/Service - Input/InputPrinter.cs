@@ -15,8 +15,6 @@ namespace Systems.TetrisInput
                 return;
             }
 
-            inputService.OnMoveLeft += () => Debug.Log("move left");
-            inputService.OnMoveRight += () => Debug.Log("move right");
             inputService.OnDash += () => Debug.Log("dash");
             inputService.OnRotateClockwise += () => Debug.Log("rotate clockwise");
         }

@@ -9,15 +9,15 @@ namespace Systems.TetrisInput
     {
         public static A_TetrisInput Instance { get; private set; }
 
-        public abstract event Action OnMoveLeft;
-        public abstract event Action OnMoveRight;
-        public abstract event Action OnDash;
+        public abstract event Action<int> OnMoveHorizontally;
         public abstract event Action OnRotateClockwise;
+        public abstract event Action OnMoveDown;
+        public abstract event Action OnDash;
 
-        public abstract bool MoveLeft { get; }
-        public abstract bool MoveRight { get; }
-        public abstract bool ClockwiseInput { get; }
-        public abstract bool DashInput { get; }
+        public abstract int HorizontalMovement { get; }
+        public abstract bool IsRotatingClockwise { get; }
+        public abstract bool IsMovingDown { get; }
+        public abstract bool IsDashing { get; }
 
         protected virtual void Awake()
         {

@@ -22,10 +22,10 @@ MonoBehaviour:
   - {x: 1, y: 3}
   - {x: 2, y: 3}
   positions90degree:
-  - {x: 2, y: 3}
+  - {x: 1, y: 3}
   - {x: 2, y: 2}
   - {x: 1, y: 2}
-  - {x: 1, y: 1}
+  - {x: 2, y: 1}
   positions180degree:
   - {x: 0, y: 1}
   - {x: 1, y: 1}
@@ -89,7 +89,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273166, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: m_Name
-      value: S
+      value: S Variant
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273166, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: m_IsActive

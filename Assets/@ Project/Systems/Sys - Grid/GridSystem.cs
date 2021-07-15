@@ -48,7 +48,7 @@ namespace Systems.GridSystem
             }
             catch (IndexOutOfRangeException e)
             {
-                Debug.Log(e.Message);
+                // Debug.Log(e.Message);
                 outOfBoundsCheck = true;
             }
             catch (Exception e)

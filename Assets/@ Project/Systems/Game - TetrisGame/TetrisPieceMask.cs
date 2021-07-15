@@ -9,8 +9,7 @@ namespace Systems.TetrisGame
     public class TetrisPieceMask : MonoBehaviour
     {
         [SerializeField]
-        private SceneGrid filledGrid;
-
+        private SceneGrid solidPiecesGrid;
 
         //----------------------------------- VERTICAL MOVEMENT
         public void MoveMaskDown(Vector2Int[] currentCells,
@@ -26,7 +25,7 @@ namespace Systems.TetrisGame
                 maskCopy[i] =
                     new Vector2Int(maskCopy[i].x, maskCopy[i].y - 1);
 
-                filledGrid.GridSystem.GetCellState(
+                solidPiecesGrid.GridSystem.GetCellState(
                         maskCopy[i].y, maskCopy[i].x,
                         out var isFilled, out var outOfBounds);
 
@@ -73,7 +72,7 @@ namespace Systems.TetrisGame
                 maskCopy[i] =
                     new Vector2Int(maskCopy[i].x + movement, maskCopy[i].y);
 
-                filledGrid.GridSystem.GetCellState(
+                solidPiecesGrid.GridSystem.GetCellState(
                         maskCopy[i].y, maskCopy[i].x,
                         out var isFilled, out var outOfBounds);
 
@@ -143,13 +142,13 @@ namespace Systems.TetrisGame
             var checkCollidedWithLeftWall = false;
             var checkCollidedWithFloor = false;
             var checkCollidedWithAnotherPiece = false;
-            var lastCellBeforeRightWall = filledGrid.GridSystem.ColumnsCount - 1;
+            var lastCellBeforeRightWall = solidPiecesGrid.GridSystem.ColumnsCount - 1;
             var indexExceedingLeftWall = 0;
             var indexExceedingRightWall = 0;
             for (int i = 0; i < cellsInGrid.Length; i++)
             {
                 var cell = cellsInGrid[i];
-                filledGrid.GridSystem.GetCellState(cell.y, cell.x,
+                solidPiecesGrid.GridSystem.GetCellState(cell.y, cell.x,
                         out var isFilled, out var outOfBounds);
 
                 if (isFilled)

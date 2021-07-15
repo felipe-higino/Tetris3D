@@ -16,6 +16,12 @@ namespace Systems.TetrisGame
             if (Application.isPlaying)
             {
                 GUILayout.Space(15);
+                if (GUILayout.Button("Start game"))
+                {
+                    obj.StartNewGame();
+                }
+
+                GUILayout.Space(15);
 
                 if (GUILayout.Button("spawn piece"))
                 {

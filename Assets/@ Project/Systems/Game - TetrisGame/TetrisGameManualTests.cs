@@ -15,11 +15,13 @@ namespace Systems.TetrisGame
         [Space(15)]
         [SerializeField]
         private TetrisPieceMask tetrisPieceMask;
-
-        [Header("Data")]
-        [Space(15)]
         [SerializeField]
-        private SO_TetrisPiece tetrisPiece;
+        private RandomizeTetrisPiece randomizer;
+        [SerializeField]
+        private TetrisGameRules gameRules;
+        [SerializeField]
+        private PieceMovementManager pieceMovementManager;
+
 
         [Header("Grids")]
         [Space(15)]
@@ -30,6 +32,12 @@ namespace Systems.TetrisGame
         [SerializeField]
         private SceneGrid maskGrid;
 
+        private SO_TetrisPiece tetrisPiece => gameRules.CurrentPiece;
+
+        private void Start()
+        {
+            StartNewGame();
+        }
 
         public void SpawnPiece()
         {
@@ -39,101 +47,30 @@ namespace Systems.TetrisGame
             movablePieceGrid.indexesWithColor2 = pieceCells.ToArray();
         }
 
-        #region mask tests --------------------------------------------------------------
-
-        // private Vector2Int[] maskCells;
-        // private Vector2Int piecePivot;
-        // private Degrees rotationMemory;
-
-        // private int GetNextRotationIndex()
-        // {
-        //     var index = (int)rotationMemory + 1;
-        //     if (index > 3)
-        //         index = 0;
-        //     if (index < 0)
-        //         index = 3;
-
-        //     return index;
-        // }
-
-        [SerializeField]
-        private PiecesManager piecesManager;
+        public void StartNewGame()
+        {
+            gameRules.StartNewGame();
+        }
 
         public void SpawnMask()
         {
-            piecesManager.SpawnPiece(tetrisPiece);
-            // PieceSpawner.SpawnTetrisPiece(tetrisPiece, maskGrid,
-            //     out var pieceCells, out var pivotCell);
-
-            // maskCells = pieceCells;
-            // piecePivot = pivotCell;
-            // rotationMemory = Degrees._0;
-
-            // //gizmos
-            // maskGrid.indexesWithColor2 = pieceCells;
+            pieceMovementManager.SpawnPiece(tetrisPiece);
         }
 
         public void MoveMaskHorizontally(bool isRight)
         {
-            piecesManager.MovePieceHorizontally(isRight);
-            // tetrisPieceMask.MoveMaskHorizontally(maskCells, isRight,
-            //     out var wallCollision, out var deslocation);
-
-            // //deslocating pivot and body
-            // for (int i = 0; i < maskCells.Length; i++)
-            // {
-            //     maskCells[i] = new Vector2Int(
-            //         maskCells[i].x + deslocation.x,
-            //         maskCells[i].y + deslocation.y);
-            // }
-            // piecePivot = new Vector2Int(
-            //         piecePivot.x + deslocation.x,
-            //         piecePivot.y + deslocation.y);
-
-            // //gizmos
-            // maskGrid.indexesWithColor2 = maskCells;
+            pieceMovementManager.MovePieceHorizontally(isRight ? +1 : -1);
         }
 
         public void MoveMaskDown()
         {
-            piecesManager.MovePieceDown();
-            // tetrisPieceMask.MoveMaskDown(maskCells,
-            //     out var deslocation, out var didMovementEnded);
-
-            // //deslocating pivot and body
-            // for (int i = 0; i < maskCells.Length; i++)
-            // {
-            //     maskCells[i] = new Vector2Int(
-            //         maskCells[i].x + deslocation.x,
-            //         maskCells[i].y + deslocation.y);
-            // }
-            // piecePivot = new Vector2Int(
-            //         piecePivot.x + deslocation.x,
-            //         piecePivot.y + deslocation.y);
-
-            // //gizmos
-            // maskGrid.indexesWithColor2 = maskCells;
+            pieceMovementManager.MovePieceDown();
         }
 
         public void RotateMask()
         {
-            piecesManager.RotatePieceClockwise(tetrisPiece);
-            // var requiredRotation = (Degrees)GetNextRotationIndex();
-            // tetrisPieceMask.RotateMask(maskCells, piecePivot, tetrisPiece,
-            //     requiredRotation, out var newCells, out var newPivot,
-            //     out var didChangeRotation);
-
-            // maskCells = newCells;
-            // piecePivot = newPivot;
-            // if (didChangeRotation)
-            //     rotationMemory = requiredRotation;
-
-            // //gizmos
-            // maskGrid.indexesWithColor2 = maskCells;
+            pieceMovementManager.RotatePieceClockwise(tetrisPiece);
         }
-
-        #endregion mask tests ----------------------------------------------------------------------
-
     }
 }
 

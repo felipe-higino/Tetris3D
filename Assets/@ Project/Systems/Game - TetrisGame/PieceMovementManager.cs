@@ -7,7 +7,7 @@ using Systems.TetrisPiece;
 
 namespace Systems.TetrisGame
 {
-    public class PiecesManager : MonoBehaviour
+    public class PieceMovementManager : MonoBehaviour
     {
         public event Action<Vector2Int[]> OnPieceRequireSolidify;
 
@@ -43,7 +43,11 @@ namespace Systems.TetrisGame
             UpdateGridGizmos();
         }
 
-        public void MovePieceDown()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns> Did movement ended? </returns>
+        public bool MovePieceDown()
         {
             tetrisPieceMask.MoveMaskDown(pieceCells,
                 out var deslocation, out var didMovementEnded);
@@ -66,10 +70,22 @@ namespace Systems.TetrisGame
 
             //gizmos
             UpdateGridGizmos();
+
+            return didMovementEnded;
         }
 
-        public void MovePieceHorizontally(bool isRight)
+        public void MovePieceHorizontally(int direction)
         {
+            if (direction == 0)
+            {
+                return;
+            }
+            var isRight = true;
+            if (direction < 0)
+            {
+                isRight = false;
+            }
+
             tetrisPieceMask.MoveMaskHorizontally(pieceCells, isRight,
                 out var _, out var deslocation);
 
