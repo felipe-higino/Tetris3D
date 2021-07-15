@@ -20,7 +20,11 @@ namespace Systems.Pieces3D
                 pieceToSpawn = EditorGUILayout.ObjectField(pieceToSpawn, typeof(SO_TetrisPiece), true);
                 if (GUILayout.Button("Spawn"))
                 {
-                    obj.SpawnPiece(pieceToSpawn as SO_TetrisPiece);
+                    obj.gameObject.SetActive(true);
+                }
+                if (GUILayout.Button("Despawn"))
+                {
+                    obj.gameObject.SetActive(false);
                 }
             }
             base.OnInspectorGUI();

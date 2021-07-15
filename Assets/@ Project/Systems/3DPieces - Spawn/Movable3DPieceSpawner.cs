@@ -10,24 +10,26 @@ namespace Systems.Pieces3D
     public class Movable3DPieceSpawner : MonoBehaviour
     {
         [SerializeField]
-        private Transform container;
-        [SerializeField]
         private Movable3DPiece[] cachedPieces;
 
-        public Movable3DPiece SpawnPiece(SO_TetrisPiece pieceToSpawn)
+        public Movable3DPiece Current3DPiece { get; private set; }
+
+        public void ActivatePiece(SO_TetrisPiece pieceToSpawn)
         {
             try
             {
-                var original = cachedPieces
+                var search = cachedPieces
                     .FirstOrDefault(x => x.TetrisPieceData == pieceToSpawn);
-                var instance = Instantiate(original, container, true);
-                instance.gameObject.SetActive(true);
-                return instance;
+
+                Current3DPiece?.gameObject.SetActive(false);
+
+                Current3DPiece = search;
+                Current3DPiece.gameObject.SetActive(true);
+
             }
             catch (Exception e)
             {
                 Debug.LogError(e.Message);
-                return null;
             }
         }
 

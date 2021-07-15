@@ -11,6 +11,10 @@ namespace Systems.Pieces3D
         private SO_TetrisPiece tetrisPieceData;
         public SO_TetrisPiece TetrisPieceData => tetrisPieceData;
 
+        private Vector3 originalPosition;
+        private Quaternion originalRotation;
+        private Vector3 originalScale;
+
         public Material GetMaterial()
         {
             return GetComponentInChildren<Material>();
@@ -24,10 +28,19 @@ namespace Systems.Pieces3D
             }
         }
 
-        public void Destruct()
+        private void Awake()
         {
-            Destroy(gameObject);
+            originalPosition = transform.position;
+            originalRotation = transform.rotation;
+            originalScale = transform.localScale;
         }
+
+        private void OnDisable()
+        {
+            transform.SetPositionAndRotation(originalPosition, originalRotation);
+            transform.localScale = originalScale;
+        }
+
     }
 
 }

@@ -38,7 +38,6 @@ namespace Systems.Pieces3D
         }
 
         private Solid3DCell[,] SolidCellsMatrix = new Solid3DCell[0, 0];
-        private Movable3DPiece current3DPiece;
 
         private void Start()
         {
@@ -84,15 +83,12 @@ namespace Systems.Pieces3D
 
         private void OnSpawnPiece(SO_TetrisPiece spawned)
         {
-            current3DPiece?.Destruct();
-            current3DPiece = movable3DPieceSpawner.SpawnPiece(spawned);
+            movable3DPieceSpawner.ActivatePiece(spawned);
         }
 
         private void OnPieceMoveDown()
         {
-
-            current3DPiece?.MoveDown();
-
+            movable3DPieceSpawner.Current3DPiece?.MoveDown();
         }
     }
 
