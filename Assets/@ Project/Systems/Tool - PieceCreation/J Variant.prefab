@@ -89,7 +89,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273166, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: m_Name
-      value: J
+      value: J Variant
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273166, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: m_IsActive
@@ -102,6 +102,10 @@ PrefabInstance:
     - target: {fileID: 9091605857606273167, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: columnsCount
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9091605857606273167, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
+      propertyPath: drawCoordinates
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273167, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: centerGizmosColor1.a
@@ -121,7 +125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273167, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: centerGizmosColor2.a
-      value: 1
+      value: 0.64705884
       objectReference: {fileID: 0}
     - target: {fileID: 9091605857606273167, guid: 2222431e81fd95c4d99cca10f9d5d8d2, type: 3}
       propertyPath: centerGizmosColor2.b

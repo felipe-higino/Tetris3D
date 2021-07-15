@@ -90,6 +90,13 @@ namespace Systems.GridSystem
         [SerializeField]
         public Vector2Int[] indexesWithColor2;
 
+        [SerializeField]
+        private bool drawCoordinates;
+        [SerializeField]
+        private GUIStyle style;
+        [SerializeField]
+        private Vector3 worldDeslocation;
+
         //grid gizmos
         private void OnDrawGizmos()
         {
@@ -135,12 +142,19 @@ namespace Systems.GridSystem
                         Gizmos.color = centerGizmosColor1;
                     }
                     Gizmos.DrawCube(position, new Vector3(1, 1, 1) * boxGizmoSizeMultiplier);
+
+                    if (drawCoordinates)
+                    {
+                        UnityEditor.Handles.Label(position + worldDeslocation, $"({j},{i})", style);
+                    }
+
                 }
             }
         }
 
+#endif
     }
 
-#endif
+
 
 }
