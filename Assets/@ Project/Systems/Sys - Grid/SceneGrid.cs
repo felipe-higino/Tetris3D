@@ -24,7 +24,6 @@ namespace Systems.GridSystem
         private float cellSize = 1f;
 
         public GridSystemComponent GridSystem { get; private set; }
-        private Vector2[][] CenterPositions;
 
         public void UpdateGizmosWithSolidCells()
         {
@@ -49,7 +48,12 @@ namespace Systems.GridSystem
             GridSystem = new GridSystemComponent(rowsCount, columnsCount);
         }
 
-        private Vector3[][] GetCenterPositions()
+        public struct PositionAndRotation
+        {
+
+        }
+
+        public Vector3[][] GetCenterPositions()
         {
             var verticalDirection = origin.up;
             var horizontalDirection = origin.right;

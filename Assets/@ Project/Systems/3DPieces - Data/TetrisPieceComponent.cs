@@ -12,5 +12,10 @@ namespace Systems.Pieces3D.Data
         private SO_TetrisPiece tetrisPieceData;
         public SO_TetrisPiece TetrisPieceData => tetrisPieceData;
 
+        public Material GetMaterial()
+        {
+            return GetComponentInChildren<Material>();
+        }
+
     }
 }

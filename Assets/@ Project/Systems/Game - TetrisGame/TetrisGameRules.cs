@@ -12,6 +12,8 @@ namespace Systems.TetrisGame
 {
     public class TetrisGameRules : MonoBehaviour
     {
+        public event Action<SO_TetrisPiece, Vector2Int[]> OnSolidify;
+
         public SO_TetrisPiece CurrentPiece { get; private set; }
 
         [Header("Parameters")]
@@ -68,6 +70,9 @@ namespace Systems.TetrisGame
                 solidPiecesGrid.GridSystem
                     .SetCellState(cell.y, cell.x, true);
             }
+
+            OnSolidify?.Invoke(CurrentPiece, pieceCells);
+
             solidPiecesGrid.UpdateGizmosWithSolidCells();
 
             var filledRows = solidPiecesGrid.GridSystem.GetCompletedRows();

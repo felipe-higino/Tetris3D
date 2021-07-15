@@ -26,6 +26,9 @@ namespace Systems.Tetris.Model
         [SerializeField]
         private Vector2Int[] positions270degree;
 
+        [SerializeField]
+        private Material material;
+
 
         public Vector2Int[] Positions0degree => positions0degree;
         public Vector2Int[] Positions90degree => positions90degree;
@@ -34,6 +37,7 @@ namespace Systems.Tetris.Model
 
 
         public Vector2Int PieceFullBox => pieceFullBox;
+        public Material Material => material;
 
 #if UNITY_EDITOR
 

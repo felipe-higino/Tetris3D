@@ -6,8 +6,8 @@ using Systems.Tetris.Model;
 
 namespace Systems.Pieces3D.Spawn
 {
-    [CustomEditor(typeof(SpawnTetrisPiece))]
-    public class SpawnTetrisPieceEditor : Editor
+    [CustomEditor(typeof(Spawn3DPiece))]
+    public class Spawn3DPieceEditor : Editor
     {
         public Object pieceToSpawn;
 
@@ -15,7 +15,7 @@ namespace Systems.Pieces3D.Spawn
         {
             if (Application.isPlaying)
             {
-                var obj = (SpawnTetrisPiece)target;
+                var obj = (Spawn3DPiece)target;
 
                 pieceToSpawn = EditorGUILayout.ObjectField(pieceToSpawn, typeof(SO_TetrisPiece), true);
                 if (GUILayout.Button("Spawn"))

@@ -7,9 +7,8 @@ using Systems.Tetris.Model;
 using Systems.Pieces3D.Data;
 
 namespace Systems.Pieces3D.Spawn
-
 {
-    public class SpawnTetrisPiece : MonoBehaviour
+    public class Spawn3DPiece : MonoBehaviour
     {
         [SerializeField]
         private Transform container;

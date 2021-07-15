@@ -33,4 +33,5 @@ MonoBehaviour:
   - {x: 0, y: 2}
   - {x: 1, y: 3}
   - {x: 1, y: 2}
+  material: {fileID: 2100000, guid: aaec88793feb0344486ffdef4585bbc3, type: 2}
   creationTool: {fileID: 229102207, guid: 2295dcc1e7b8774409d9304b88b59f23, type: 3}

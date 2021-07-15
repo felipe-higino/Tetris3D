@@ -6,6 +6,9 @@ namespace Systems.Pieces3D.Data
 {
     public class TetrisPieceCell : MonoBehaviour
     {
+        /// <summary>
+        /// Original coordinate as 0 degrees piece. Not used yet.
+        /// </summary>
         [SerializeField]
         private Vector2Int relativeCoordinate;
 
