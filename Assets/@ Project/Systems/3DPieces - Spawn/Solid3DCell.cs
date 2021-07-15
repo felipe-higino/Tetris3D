@@ -25,6 +25,11 @@ namespace Systems.Pieces3D
         {
             this.Position = position;
         }
+
+        public void Destruct()
+        {
+            Destroy(gameObject);
+        }
     }
 
 }

@@ -56,7 +56,7 @@ namespace Systems.TetrisGame
         public enum WallCollision { LEFT, RIGHT, NONE }
         public void MoveMaskHorizontally(
             Vector2Int[] originalCells, bool isRight,
-            out WallCollision wallCollision, out Vector2Int deslocation)
+            out WallCollision wallCollision, out int deslocation)
         {
             var maskCopy = new List<Vector2Int>(originalCells);
 
@@ -88,14 +88,14 @@ namespace Systems.TetrisGame
 
             if (collidedWithWall || collidedWithAnotherPiece)
             {
-                deslocation = new Vector2Int(0, 0);
+                deslocation = 0;
             }
             else
             {
                 if (isRight)
-                    deslocation = new Vector2Int(+1, 0);
+                    deslocation = +1;
                 else
-                    deslocation = new Vector2Int(-1, 0);
+                    deslocation = -1;
             }
 
             if (collidedWithWall)

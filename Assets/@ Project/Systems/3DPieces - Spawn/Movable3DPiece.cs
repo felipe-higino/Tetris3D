@@ -15,6 +15,19 @@ namespace Systems.Pieces3D
         {
             return GetComponentInChildren<Material>();
         }
+
+        public void MoveDown()
+        {
+            if (gameObject.activeSelf)
+            {
+                transform.SetPositionAndRotation(transform.position + new Vector3(0, -1, 0), Quaternion.identity);
+            }
+        }
+
+        public void Destruct()
+        {
+            Destroy(gameObject);
+        }
     }
 
 }

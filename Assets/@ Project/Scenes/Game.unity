@@ -2163,9 +2163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameRules: {fileID: 1393228841}
-  pieceMovementManager: {fileID: 1393228837}
   solid3DCellSpawner: {fileID: 1320034802}
-  solidGrid: {fileID: 1402531259}
+  movable3DPieceSpawner: {fileID: 1843923159}
 --- !u!1001 &1737892992
 PrefabInstance:
   m_ObjectHideFlags: 0

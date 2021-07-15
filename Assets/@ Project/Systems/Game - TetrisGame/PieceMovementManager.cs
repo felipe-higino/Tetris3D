@@ -9,6 +9,10 @@ namespace Systems.TetrisGame
 {
     public class PieceMovementManager : MonoBehaviour
     {
+
+        public event Action OnPieceMoveDown;
+        public event Action<int> OnPieceMoveHorizontally;
+        public event Action<Degrees> OnPieceRotate;
         public event Action<Vector2Int[]> OnPieceRequireSolidify;
 
         [SerializeField]
@@ -67,6 +71,10 @@ namespace Systems.TetrisGame
             {
                 OnPieceRequireSolidify?.Invoke(pieceCells);
             }
+            else
+            {
+                OnPieceMoveDown?.Invoke();
+            }
 
             //gizmos
             UpdateGridGizmos();
@@ -93,13 +101,17 @@ namespace Systems.TetrisGame
             for (int i = 0; i < pieceCells.Length; i++)
             {
                 pieceCells[i] = new Vector2Int(
-                    pieceCells[i].x + deslocation.x,
-                    pieceCells[i].y + deslocation.y);
+                    pieceCells[i].x + deslocation,
+                    pieceCells[i].y);
             }
             piecePivot = new Vector2Int(
-                    piecePivot.x + deslocation.x,
-                    piecePivot.y + deslocation.y);
+                    piecePivot.x + deslocation,
+                    piecePivot.y);
 
+            if (deslocation != 0)
+            {
+                OnPieceMoveHorizontally?.Invoke(deslocation);
+            }
             UpdateGridGizmos();
         }
 
@@ -113,7 +125,10 @@ namespace Systems.TetrisGame
             pieceCells = newCells;
             piecePivot = newPivot;
             if (didChangeRotation)
+            {
                 rotationMemory = requiredRotation;
+                OnPieceRotate?.Invoke(requiredRotation);
+            }
 
             UpdateGridGizmos();
         }

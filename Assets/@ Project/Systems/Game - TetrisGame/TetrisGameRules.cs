@@ -12,7 +12,11 @@ namespace Systems.TetrisGame
 {
     public class TetrisGameRules : MonoBehaviour
     {
-        public event Action<SO_TetrisPiece, Vector2Int[]> OnSolidify;
+        public delegate void Del_Solidify(SO_TetrisPiece data, Vector2Int[] positions);
+
+        public event Action OnGameStart;
+        public event Action<SO_TetrisPiece> OnSpawnPiece;
+        public event Del_Solidify OnSolidify;
 
         public SO_TetrisPiece CurrentPiece { get; private set; }
 
@@ -25,10 +29,15 @@ namespace Systems.TetrisGame
         [Space(15)]
         [SerializeField]
         private RandomizeTetrisPiece pieceRandomizer;
+
         [SerializeField]
         private PieceMovementManager pieceMovementManager;
+        public PieceMovementManager PieceMovementManager => pieceMovementManager;
+
         [SerializeField]
         private SceneGrid solidPiecesGrid;
+        public SceneGrid SolidPiecesGrid => solidPiecesGrid;
+
         [SerializeField]
         private A_TetrisInput inputs;
 
@@ -39,6 +48,7 @@ namespace Systems.TetrisGame
         {
             ClearSolidPieces();
             SpawnNewPiece();
+            OnGameStart?.Invoke();
         }
 
         private void Awake()
@@ -58,8 +68,8 @@ namespace Systems.TetrisGame
 
         private void OnPieceFall()
         {
-            var isNotMovingDown = !(inputs.IsDashing || inputs.IsMovingDown);
-            if (isNotMovingDown)
+            var isNotInputingDown = !(inputs.IsDashing || inputs.IsMovingDown);
+            if (isNotInputingDown)
                 pieceMovementManager.MovePieceDown();
         }
 
@@ -186,6 +196,8 @@ namespace Systems.TetrisGame
             }
 
             pieceMovementManager.SpawnPiece(pieceRandomizer.Piece);
+            OnSpawnPiece?.Invoke(pieceRandomizer.Piece);
+
             CurrentPiece = pieceRandomizer.Piece;
             pieceRandomizer.RandomizePiece();
         }

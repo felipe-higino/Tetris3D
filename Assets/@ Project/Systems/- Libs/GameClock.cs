@@ -18,14 +18,14 @@ namespace Libs
 
         public void StartClock()
         {
-            StartCoroutine("UpdateClock");
             IsClockActive = true;
+            StartCoroutine("UpdateClock");
         }
 
         public void StopClock()
         {
-            StopCoroutine("UpdateClock");
             IsClockActive = false;
+            StopCoroutine("UpdateClock");
         }
 
         public void CleanAllEvents()
@@ -38,7 +38,8 @@ namespace Libs
             while (true)
             {
                 yield return new WaitForSeconds(clock);
-                OnClockTick?.Invoke();
+                if (IsClockActive)
+                    OnClockTick?.Invoke();
             }
         }
 

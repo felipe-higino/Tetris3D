@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Systems.GridSystem;
 using Systems.TetrisGame;
 using Systems.Tetris.Model;
 
@@ -15,19 +14,13 @@ namespace Systems.Pieces3D
         [Space(15)]
         [SerializeField]
         private TetrisGameRules gameRules;
-        [SerializeField]
-        private PieceMovementManager pieceMovementManager;
 
         [Header("Spawners")]
         [Space(15)]
         [SerializeField]
         private Solid3DCellSpawner solid3DCellSpawner;
-
-        [Header("Grid")]
-        [Space(15)]
         [SerializeField]
-        private SceneGrid solidGrid;
-
+        private Movable3DPieceSpawner movable3DPieceSpawner;
 
         //cached
         private Vector3[][] _centerPositions = null;
@@ -36,26 +29,45 @@ namespace Systems.Pieces3D
             get
             {
                 if (null == _centerPositions)
-                    _centerPositions = solidGrid.GetCenterPositions();
+                {
+                    _centerPositions =
+                        gameRules.SolidPiecesGrid.GetCenterPositions();
+                }
                 return _centerPositions;
             }
         }
 
-        private Solid3DCell[,] SolidGrid;
+        private Solid3DCell[,] SolidCellsMatrix = new Solid3DCell[0, 0];
+        private Movable3DPiece current3DPiece;
 
         private void Start()
         {
-            var rows = solidGrid.GridSystem.RowsCount;
-            var columns = solidGrid.GridSystem.ColumnsCount;
-
-            SolidGrid = new Solid3DCell[rows, columns];
-
             gameRules.OnSolidify += OnSolidify;
+            gameRules.OnGameStart += OnGameStart;
+            gameRules.OnSpawnPiece += OnSpawnPiece;
+
+            gameRules.PieceMovementManager.OnPieceMoveDown += OnPieceMoveDown;
         }
 
         private void OnDestroy()
         {
             gameRules.OnSolidify -= OnSolidify;
+            gameRules.OnGameStart -= OnGameStart;
+            gameRules.OnSpawnPiece -= OnSpawnPiece;
+
+            gameRules.PieceMovementManager.OnPieceMoveDown -= OnPieceMoveDown;
+        }
+
+        private void OnGameStart()
+        {
+            Debug.Log("start");
+            foreach (var item in SolidCellsMatrix)
+            {
+                item.Destruct();
+            }
+            var rows = gameRules.SolidPiecesGrid.GridSystem.RowsCount;
+            var columns = gameRules.SolidPiecesGrid.GridSystem.ColumnsCount;
+            SolidCellsMatrix = new Solid3DCell[rows, columns];
         }
 
         private void OnSolidify(SO_TetrisPiece tetrisPiece, Vector2Int[] positions)
@@ -65,8 +77,21 @@ namespace Systems.Pieces3D
                 var instance = solid3DCellSpawner.InstantiateSolidCell(tetrisPiece);
                 instance.transform.SetPositionAndRotation(CenterPositions[position.y][position.x], Quaternion.identity);
                 instance.gameObject.SetActive(true);
-                SolidGrid[position.y, position.x] = instance;
+                SolidCellsMatrix[position.y, position.x] = instance;
             }
+
+        }
+
+        private void OnSpawnPiece(SO_TetrisPiece spawned)
+        {
+            current3DPiece?.Destruct();
+            current3DPiece = movable3DPieceSpawner.SpawnPiece(spawned);
+        }
+
+        private void OnPieceMoveDown()
+        {
+
+            current3DPiece?.MoveDown();
 
         }
     }
