@@ -20,16 +20,16 @@ public class CompressGridAlgorithmTests
     [Test]
     public void CompressMatrix()
     {
-        var matrix = new Mock[][]{
-            new Mock[]{     new Mock(2),    null,   null},
-            new Mock[]{     null,           null,   new Mock(2)},
-            new Mock[]{     new Mock(2),    null,   null},
-            new Mock[]{     null,           null,   null},
-            new Mock[]{     new Mock(2),    null,   null},
+        var matrix = new Mock[,]{
+            {new Mock(2),    null,   null},
+            {null,           null,   new Mock(2)},
+            {new Mock(2),    null,   null},
+            {null,           null,   null},
+            {new Mock(2),    null,   null},
         };
 
         matrix.CompressMatrix(
-        (x, y) => matrix[x][y] != null,
+        (x, y) => matrix[x, y] != null,
         (x) =>
         {
             Debug.Log($"empty row found, index: {x.emptyRowIndex}");

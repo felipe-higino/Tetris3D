@@ -57,7 +57,7 @@ namespace Systems.Pieces3D
 
         private void OnGridCompress()
         {
-            throw new NotImplementedException();
+            Debug.Log("compress");
         }
 
         private void OnDestroy()

@@ -16,13 +16,13 @@ namespace Libs
 
     public static class CompressMatrixCallbacksExtension
     {
-        public static void CompressMatrix<T>(this T[][] matrix,
+        public static void CompressMatrix<T>(this T[,] matrix,
             Conditional cellIsFilledConditional, Action<LineMove> moveCallback)
         {
             try
             {
-                var rowsCount = matrix.Length;
-                var columnsCount = matrix[0].Length;
+                var rowsCount = matrix.GetLength(0);
+                var columnsCount = matrix.GetLength(1);
 
                 for (int row = 0; row < rowsCount; row++)
                 {
@@ -56,7 +56,7 @@ namespace Libs
             }
         }
 
-        private static void CheckIfRowIsEmpty<T>(this T[][] gridToCompress,
+        private static void CheckIfRowIsEmpty<T>(this T[,] gridToCompress,
             int rowBeingVerified, int columnsCount, Conditional cellIsFilledconditional, out bool isEmpty)
         {
             var _checkThisRowIsEmpty = true;
@@ -74,7 +74,7 @@ namespace Libs
             isEmpty = _checkThisRowIsEmpty;
         }
 
-        private static void GetNextFilledRow<T>(this T[][] gridToCompress,
+        private static void GetNextFilledRow<T>(this T[,] gridToCompress,
             int startRow, int rowsCount, int columnsCount, Conditional cellIsFilledConditional,
             out bool didFound, out int nextFilledRow, out List<int> filledIndexes)
         {
