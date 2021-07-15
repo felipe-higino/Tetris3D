@@ -38,7 +38,7 @@ namespace Systems.TetrisInput
         private const KeyCode MoveLeftKeycode = KeyCode.LeftArrow;
         private const KeyCode MoveRightKeycode = KeyCode.RightArrow;
         private const KeyCode MoveDownKeycode = KeyCode.DownArrow;
-        private const KeyCode DashKeycode = KeyCode.Z;
+        private const KeyCode DashKeycode = KeyCode.Space;
 
         [SerializeField]
         private float verticalClockInterval = 0.3f;

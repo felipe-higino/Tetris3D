@@ -11,8 +11,15 @@ namespace Systems.TetrisGame
 {
     public class TetrisGameRules : MonoBehaviour
     {
+        public SO_TetrisPiece CurrentPiece { get; private set; }
+
+        [Header("Parameters")]
+        [Space(15)]
         [SerializeField]
-        private GameClock gameClock;
+        private float pieceFallClockInterval = 1f;
+
+        [Header("References")]
+        [Space(15)]
         [SerializeField]
         private RandomizeTetrisPiece pieceRandomizer;
         [SerializeField]
@@ -22,32 +29,31 @@ namespace Systems.TetrisGame
         [SerializeField]
         private A_TetrisInput inputs;
 
-        public SO_TetrisPiece CurrentPiece { get; private set; }
+        private GameClock pieceFallClock;
 
         [ContextMenu("start new game")]
         public void StartNewGame()
         {
-            gameClock.StopClock();
-
             SpawnNewPiece();
             ClearGrid();
-
-            gameClock.StartClock();
         }
 
         private void Awake()
         {
-            gameClock.OnClockTick += Tick;
+            pieceFallClock = gameObject.AddComponent<GameClock>();
+            pieceFallClock.clock = pieceFallClockInterval;
+
+            pieceFallClock.OnClockTick += PieceFall;
             pieceMovementManager.OnPieceRequireSolidify += SolidifyPiece;
         }
 
         private void OnDestroy()
         {
-            gameClock.OnClockTick -= Tick;
+            pieceFallClock.OnClockTick -= PieceFall;
             pieceMovementManager.OnPieceRequireSolidify -= SolidifyPiece;
         }
 
-        private void Tick()
+        private void PieceFall()
         {
             var isNotMovingDown = !(inputs.IsDashing || inputs.IsMovingDown);
             if (isNotMovingDown)
@@ -67,6 +73,8 @@ namespace Systems.TetrisGame
 
         private void SpawnNewPiece()
         {
+            pieceFallClock.StopClock();
+            pieceFallClock.StartClock();
             if (pieceRandomizer.Piece == null)
             {
                 pieceRandomizer.RandomizePiece();
@@ -77,7 +85,6 @@ namespace Systems.TetrisGame
             pieceRandomizer.RandomizePiece();
         }
 
-        //TODO: performance check
         private void ClearGrid()
         {
             for (int row = 0; row < solidPiecesGrid.GridSystem.RowsCount; row++)
@@ -90,8 +97,6 @@ namespace Systems.TetrisGame
             solidPiecesGrid.UpdateGizmosWithSolidCells();
         }
 
-        //TODO: RNG piece spawn
-        //TODO: gravity piece movement through game clock
         //TODO: score mark (line check)
         //TODO: game end check
     }

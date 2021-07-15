@@ -1091,7 +1091,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1393228839}
   - component: {fileID: 1393228841}
-  - component: {fileID: 1393228838}
   - component: {fileID: 1393228842}
   - component: {fileID: 1393228837}
   m_Layer: 0
@@ -1115,19 +1114,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piecesGrid: {fileID: 2077554707}
   tetrisPieceMask: {fileID: 158601504}
---- !u!114 &1393228838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1393228836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb124e99418d6ca489c9b4dcc0360f5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clock: 1
 --- !u!4 &1393228839
 Transform:
   m_ObjectHideFlags: 0
@@ -1154,7 +1140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4884c981bd7d6e4784e2a8ea0e577df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameClock: {fileID: 1393228838}
+  pieceFallClockInterval: 0.7
   pieceRandomizer: {fileID: 1393228842}
   pieceMovementManager: {fileID: 1393228837}
   solidPiecesGrid: {fileID: 1402531259}
