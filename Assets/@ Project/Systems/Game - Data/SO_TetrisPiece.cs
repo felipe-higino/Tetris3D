@@ -8,7 +8,7 @@ using Systems.GridSystem;
 using CreationTools;
 #endif
 
-namespace Systems.TetrisPiece
+namespace Systems.Tetris.Model
 {
     [Serializable]
     [CreateAssetMenu(fileName = "SO_TetrisPiece", menuName = "Tetris3D/SO_TetrisPiece", order = 0)]

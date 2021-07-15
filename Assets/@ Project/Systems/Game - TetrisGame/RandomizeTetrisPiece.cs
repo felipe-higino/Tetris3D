@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Systems.TetrisPiece;
+using Systems.Tetris.Model;
 
 namespace Systems.TetrisGame
 {

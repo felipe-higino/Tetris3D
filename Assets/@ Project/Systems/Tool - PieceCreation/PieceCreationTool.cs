@@ -3,7 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Systems.TetrisPiece;
+using Systems.Tetris.Model;
 using Systems.GridSystem;
 using Systems.TetrisGame;
 

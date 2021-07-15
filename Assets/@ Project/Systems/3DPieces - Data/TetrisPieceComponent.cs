@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Systems.Tetris.Model;
 
-namespace Systems.TetrisPiece
+
+namespace Systems.Pieces3D.Data
 {
     public class TetrisPieceComponent : MonoBehaviour
     {

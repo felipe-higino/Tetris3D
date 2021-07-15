@@ -4,7 +4,7 @@ using UnityEngine;
 using Systems.TetrisInput;
 using System;
 
-namespace Systems.PieceControlling
+namespace Systems.Pieces3D.Movement
 {
     public class TetrisPieceRotation : MonoBehaviour
     {

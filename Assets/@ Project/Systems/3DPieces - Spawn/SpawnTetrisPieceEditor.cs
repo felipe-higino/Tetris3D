@@ -2,9 +2,9 @@
 
 using UnityEngine;
 using UnityEditor;
-using Systems.TetrisPiece;
+using Systems.Tetris.Model;
 
-namespace Systems.PieceSpawn
+namespace Systems.Pieces3D.Spawn
 {
     [CustomEditor(typeof(SpawnTetrisPiece))]
     public class SpawnTetrisPieceEditor : Editor

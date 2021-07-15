@@ -3,9 +3,11 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Systems.TetrisPiece;
+using Systems.Tetris.Model;
+using Systems.Pieces3D.Data;
 
-namespace Systems.PieceSpawn
+namespace Systems.Pieces3D.Spawn
+
 {
     public class SpawnTetrisPiece : MonoBehaviour
     {
