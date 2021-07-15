@@ -85,6 +85,17 @@ namespace Systems.GridSystem
             return completedRows;
         }
 
+        public void ClearGrid()
+        {
+            for (int row = 0; row < RowsCount; row++)
+            {
+                for (int column = 0; column < ColumnsCount; column++)
+                {
+                    SetCellState(row, column, false);
+                }
+            }
+        }
+
         private void _InitMatrix(int rows, int columns)
         {
             cellsMatrix = new Cell[RowsCount][];
