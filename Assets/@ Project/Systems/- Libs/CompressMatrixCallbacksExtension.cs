@@ -14,7 +14,7 @@ namespace Libs
 
     public delegate bool Conditional(int x, int y);
 
-    public static class CompressMatrixNullCheckExtension
+    public static class CompressMatrixCallbacksExtension
     {
         public static void CompressMatrix<T>(this T[][] matrix,
             Conditional cellIsFilledConditional, Action<LineMove> moveCallback)

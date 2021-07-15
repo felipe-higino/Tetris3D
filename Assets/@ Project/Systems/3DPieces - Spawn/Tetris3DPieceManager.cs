@@ -9,6 +9,7 @@ using Systems.GridSystem;
 
 namespace Systems.Pieces3D
 {
+
     public class Tetris3DPieceManager : MonoBehaviour
     {
         [Header("References")]
@@ -23,7 +24,8 @@ namespace Systems.Pieces3D
         [SerializeField]
         private Movable3DPieceSpawner movable3DPieceSpawner;
 
-        private Solid3DCell[,] SolidCellsMatrix = new Solid3DCell[0, 0];
+        private Solid3DCell[,] SolidCellsMatrix;
+
 
         //cached
         private Vector3[][] _centerPositions = null;
@@ -46,10 +48,16 @@ namespace Systems.Pieces3D
             gameRules.OnSolidify += OnSolidify;
             gameRules.OnGameStart += OnGameStart;
             gameRules.OnSpawnPiece += OnSpawnPiece;
+            gameRules.OnGridCompress += OnGridCompress;
 
             gameRules.PieceMovementManager.OnPieceRotate += OnPieceRotate;
             gameRules.PieceMovementManager.OnPieceMoveDown += OnPieceMoveDown;
             gameRules.PieceMovementManager.OnPieceMoveHorizontally += OnPieceMoveHorizontally;
+        }
+
+        private void OnGridCompress()
+        {
+            throw new NotImplementedException();
         }
 
         private void OnDestroy()
