@@ -46,7 +46,6 @@ namespace Systems.Pieces3D
             gameRules.OnSolidify += OnSolidify;
             gameRules.OnGameStart += OnGameStart;
             gameRules.OnSpawnPiece += OnSpawnPiece;
-            gameRules.OnGridCompress += OnGridCompress;
 
             gameRules.PieceMovementManager.OnPieceRotate += OnPieceRotate;
             gameRules.PieceMovementManager.OnPieceMoveDown += OnPieceMoveDown;
@@ -58,16 +57,10 @@ namespace Systems.Pieces3D
             gameRules.OnSolidify -= OnSolidify;
             gameRules.OnGameStart -= OnGameStart;
             gameRules.OnSpawnPiece -= OnSpawnPiece;
-            gameRules.OnGridCompress -= OnGridCompress;
 
             gameRules.PieceMovementManager.OnPieceRotate -= OnPieceRotate;
             gameRules.PieceMovementManager.OnPieceMoveDown -= OnPieceMoveDown;
             gameRules.PieceMovementManager.OnPieceMoveHorizontally -= OnPieceMoveHorizontally;
-        }
-
-        private void OnGridCompress()
-        {
-            throw new NotImplementedException();
         }
 
         private void OnGameStart()

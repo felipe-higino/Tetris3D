@@ -15,7 +15,6 @@ namespace Systems.TetrisGame
         public delegate void Del_Solidify(SO_TetrisPiece data, Vector2Int[] positions);
 
         public event Action OnGameStart;
-        public event Action OnGridCompress;
         public event Del_Solidify OnSolidify;
         public event Action<SO_TetrisPiece> OnSpawnPiece;
 
@@ -115,7 +114,6 @@ namespace Systems.TetrisGame
 
             //compress rows algorythm
             solidPiecesGrid.GridSystem.CompressGrid();
-            OnGridCompress?.Invoke();
 
             solidPiecesGrid.UpdateGizmosWithSolidCells();
 

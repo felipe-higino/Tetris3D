@@ -12,9 +12,12 @@ namespace Libs
         public int[] filledIndexesCoordinateX;
     }
 
+    public delegate bool Conditional(int x, int y);
+
     public static class CompressMatrixNullCheckExtension
     {
-        public static void CompressMatrix<T>(this T[][] matrix, Action<LineMove> moveCallback) where T : class
+        public static void CompressMatrix<T>(this T[][] matrix,
+            Conditional cellIsFilledConditional, Action<LineMove> moveCallback)
         {
             try
             {
@@ -23,7 +26,8 @@ namespace Libs
 
                 for (int row = 0; row < rowsCount; row++)
                 {
-                    matrix.CheckIfRowIsEmpty(row, columnsCount, out var thisRowIsEmpty);
+                    matrix.CheckIfRowIsEmpty(row, columnsCount, cellIsFilledConditional,
+                        out var thisRowIsEmpty);
 
                     if (!thisRowIsEmpty)
                     {
@@ -31,7 +35,7 @@ namespace Libs
                     }
 
                     //when finding an empty row, get the next one that is not empty
-                    matrix.GetNextFilledRow(row, rowsCount, columnsCount,
+                    matrix.GetNextFilledRow(row, rowsCount, columnsCount, cellIsFilledConditional,
                          out var didFound, out var nextFilledRow, out var filledIndexes);
 
                     if (didFound)
@@ -53,13 +57,14 @@ namespace Libs
         }
 
         private static void CheckIfRowIsEmpty<T>(this T[][] gridToCompress,
-            int rowBeingVerified, int columnsCount, out bool isEmpty) where T : class
+            int rowBeingVerified, int columnsCount, Conditional cellIsFilledconditional, out bool isEmpty)
         {
             var _checkThisRowIsEmpty = true;
 
             for (int column = 0; column < columnsCount; column++)
             {
-                if (null != gridToCompress[rowBeingVerified][column])
+                var satisfyed = cellIsFilledconditional.Invoke(rowBeingVerified, column);
+                if (satisfyed)
                 {
                     _checkThisRowIsEmpty = false;
                     break;
@@ -70,7 +75,7 @@ namespace Libs
         }
 
         private static void GetNextFilledRow<T>(this T[][] gridToCompress,
-            int startRow, int rowsCount, int columnsCount,
+            int startRow, int rowsCount, int columnsCount, Conditional cellIsFilledConditional,
             out bool didFound, out int nextFilledRow, out List<int> filledIndexes)
         {
             var _didFound = false;
@@ -81,7 +86,8 @@ namespace Libs
             {
                 for (int column = 0; column < columnsCount; column++)
                 {
-                    if (null != gridToCompress[row][column])
+                    var satisfyed = cellIsFilledConditional.Invoke(row, column);
+                    if (satisfyed)
                     {
                         _didFound = true;
                         _filledIndexes_y.Add(column);//gets all filled cells

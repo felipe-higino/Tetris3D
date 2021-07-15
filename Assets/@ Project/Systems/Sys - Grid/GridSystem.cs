@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,14 @@ namespace Systems.GridSystem
             this.RowsCount = rows;
             this.ColumnsCount = columns;
             _InitMatrix();
+        }
+
+        public Cell[][] GetMatrixSnap()
+        {
+            var cloned = cellsMatrix
+                .Select(x => (Cell[])x.Clone())
+                .ToArray();
+            return cloned;
         }
 
         public void SetCellState(int row, int column, bool isFilled)
