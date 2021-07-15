@@ -53,20 +53,19 @@ namespace Systems.GridSystem
 
         }
 
-        public Vector3[][] GetCenterPositions()
+        public Vector3[,] GetCenterPositions()
         {
             var verticalDirection = origin.up;
             var horizontalDirection = origin.right;
 
-            var positions = new Vector3[rowsCount][];
+            var positions = new Vector3[rowsCount, columnsCount];
 
             var originPosition = centerSnapOrigin.position;
             for (int rowIndex = 0; rowIndex < rowsCount; rowIndex++)
             {
-                positions[rowIndex] = new Vector3[columnsCount];
                 for (int columnIndex = 0; columnIndex < columnsCount; columnIndex++)
                 {
-                    positions[rowIndex][columnIndex] = originPosition;
+                    positions[rowIndex, columnIndex] = originPosition;
                     originPosition += (horizontalDirection * cellSize);
                 }
                 originPosition = centerSnapOrigin.position;
@@ -130,13 +129,12 @@ namespace Systems.GridSystem
             }
 
 
-            var rows = GetCenterPositions();
-            for (int i = 0; i < rows.Length; i++)
+            var positions = GetCenterPositions();
+            for (int i = 0; i < positions.GetLength(0); i++)
             {
-                var column = rows[i];
-                for (int j = 0; j < column.Length; j++)
+                for (int j = 0; j < positions.GetLength(1); j++)
                 {
-                    var position = column[j];
+                    var position = positions[i, j];
                     if (indexesWithColor2.Contains(new Vector2Int(j, i)))
                     {
                         Gizmos.color = centerGizmosColor2;

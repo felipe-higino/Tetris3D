@@ -12,7 +12,7 @@ namespace Libs
         public int[] filledIndexesCoordinateX;
     }
 
-    public delegate bool Conditional(int x, int y);
+    public delegate bool Conditional(int row, int column);
 
     public static class CompressMatrixCallbacksExtension
     {

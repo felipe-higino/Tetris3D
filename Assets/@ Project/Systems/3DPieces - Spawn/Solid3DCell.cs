@@ -14,16 +14,9 @@ namespace Systems.Pieces3D
         [SerializeField]
         private Renderer render;
 
-        public Vector2Int Position { get; private set; }
-
         private void Awake()
         {
             render.material = data.Material;
-        }
-
-        public void Init(Vector2Int position)
-        {
-            this.Position = position;
         }
 
         public void Destruct()

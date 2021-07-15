@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Systems.TetrisGame;
 using Systems.Tetris.Model;
-using Systems.GridSystem;
+using Libs;
 
 namespace Systems.Pieces3D
 {
@@ -24,12 +24,11 @@ namespace Systems.Pieces3D
         [SerializeField]
         private Movable3DPieceSpawner movable3DPieceSpawner;
 
-        private Solid3DCell[,] SolidCellsMatrix;
-
+        private Solid3DCell[,] SolidCellsMatrix = new Solid3DCell[0, 0];
 
         //cached
-        private Vector3[][] _centerPositions = null;
-        private Vector3[][] CenterPositions
+        private Vector3[,] _centerPositions = null;
+        private Vector3[,] CenterPositions
         {
             get
             {
@@ -43,7 +42,7 @@ namespace Systems.Pieces3D
         }
 
 
-        private void Start()
+        private void Awake()
         {
             gameRules.OnSolidify += OnSolidify;
             gameRules.OnGameStart += OnGameStart;
@@ -55,32 +54,64 @@ namespace Systems.Pieces3D
             gameRules.PieceMovementManager.OnPieceMoveHorizontally += OnPieceMoveHorizontally;
         }
 
-        private void OnGridCompress()
-        {
-            Debug.Log("compress");
-        }
 
         private void OnDestroy()
         {
             gameRules.OnSolidify -= OnSolidify;
             gameRules.OnGameStart -= OnGameStart;
             gameRules.OnSpawnPiece -= OnSpawnPiece;
+            gameRules.OnGridCompress -= OnGridCompress;
 
             gameRules.PieceMovementManager.OnPieceRotate -= OnPieceRotate;
             gameRules.PieceMovementManager.OnPieceMoveDown -= OnPieceMoveDown;
             gameRules.PieceMovementManager.OnPieceMoveHorizontally -= OnPieceMoveHorizontally;
         }
 
+        private void OnGridCompress(int[] rowsDeleted)
+        {
+            foreach (var row in rowsDeleted)
+            {
+                for (int column = 0; column < SolidCellsMatrix.GetLength(1); column++)
+                {
+                    SolidCellsMatrix[row, column].Destruct();
+                    SolidCellsMatrix[row, column] = null;
+                }
+            }
+
+            // PrintMatrix();
+            Conditional cellIsFilledConditional = (row, column) =>
+            {
+                var isFilled = SolidCellsMatrix[row, column] != null;
+                return isFilled;
+            };
+
+            Action<LineMove> moveCallback = (x) =>
+            {
+                foreach (var column in x.filledIndexesCoordinateX)
+                {
+                    int row = x.emptyRowIndex;
+
+                    var amountToDeslocate = x.nextFilledRowIndex - x.emptyRowIndex;
+                    var cellToDeslocate = SolidCellsMatrix[x.nextFilledRowIndex, column];
+
+                    SolidCellsMatrix[x.nextFilledRowIndex, column] = null;
+                    SolidCellsMatrix[row, column] = cellToDeslocate;
+
+                    cellToDeslocate.transform.localPosition += new Vector3(0, -amountToDeslocate, 0);
+                }
+            };
+
+            SolidCellsMatrix.CompressMatrix(cellIsFilledConditional, moveCallback);
+        }
+
         private void OnGameStart()
         {
-            foreach (var item in SolidCellsMatrix)
-            {
-                item.Destruct();
-            }
+            DestructAllSolidCells();
             var rows = gameRules.SolidPiecesGrid.GridSystem.RowsCount;
             var columns = gameRules.SolidPiecesGrid.GridSystem.ColumnsCount;
             SolidCellsMatrix = new Solid3DCell[rows, columns];
         }
+
 
         private void OnSolidify(SO_TetrisPiece tetrisPiece, Vector2Int[] positions)
         {
@@ -89,7 +120,7 @@ namespace Systems.Pieces3D
                 var instance = solid3DCellSpawner.InstantiateSolidCell(tetrisPiece);
                 if (null == instance)
                     return;
-                instance.transform.SetPositionAndRotation(CenterPositions[position.y][position.x], Quaternion.identity);
+                instance.transform.SetPositionAndRotation(CenterPositions[position.y, position.x], Quaternion.identity);
                 instance.gameObject.SetActive(true);
                 SolidCellsMatrix[position.y, position.x] = instance;
             }
@@ -114,6 +145,42 @@ namespace Systems.Pieces3D
         private void OnPieceRotate(Degrees degree)
         {
             movable3DPieceSpawner.Current3DPiece?.Rotate(degree);
+        }
+
+
+        private void DestructAllSolidCells()
+        {
+            var currentRows = SolidCellsMatrix.GetLength(0);
+            var currentColumns = SolidCellsMatrix.GetLength(1);
+            for (int row = 0; row < currentRows; row++)
+            {
+                for (int column = 0; column < currentColumns; column++)
+                {
+                    SolidCellsMatrix[row, column]?.Destruct();
+                    SolidCellsMatrix[row, column] = null;
+                }
+            }
+        }
+
+        private void PrintMatrix()
+        {
+            var currentRows = SolidCellsMatrix.GetLength(0);
+            var currentColumns = SolidCellsMatrix.GetLength(1);
+            for (int row = 0; row < currentRows; row++)
+            {
+                for (int column = 0; column < currentColumns; column++)
+                {
+                    var cell = SolidCellsMatrix[row, column];
+                    if (null == cell)
+                    {
+                        Debug.Log($"({column}, {row}) : null");
+                    }
+                    else
+                    {
+                        Debug.Log($"({column}, {row}) : {cell.name}");
+                    }
+                }
+            }
         }
     }
 
