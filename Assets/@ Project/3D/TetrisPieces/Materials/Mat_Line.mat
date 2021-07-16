@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_Z
+  m_Name: Mat_Line
   m_Shader: {fileID: -6465566751694194690, guid: 415829d3e51c1694ea1762d8c729a16e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _SampleTexture2D_dcad2e14e24047879d84b92f555d2f0f_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 222c434b17ddb81478fe1b76d8c2f805, type: 3}
+        m_Texture: {fileID: 2800000, guid: e29e1bc90315a8d4e9572120be7a099c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -37,5 +37,5 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - Color_5e5c38f1baef4abe83665af7a9a8c7d2: {r: 2.9960785, g: 0, b: 0, a: 1}
+    - Color_5e5c38f1baef4abe83665af7a9a8c7d2: {r: 3.2627451, g: 3.2627451, b: 3.2627451, a: 1}
   m_BuildTextureStacks: []

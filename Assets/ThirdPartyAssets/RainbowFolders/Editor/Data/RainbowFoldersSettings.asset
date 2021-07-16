@@ -145,3 +145,7 @@ MonoBehaviour:
     Key: Assets/@ Project/Content
     SmallIcon: {fileID: 2800000, guid: 0e6fd3e5ce3c5ba40b5a903ee125755b, type: 3}
     LargeIcon: {fileID: 2800000, guid: 0e6fd3e5ce3c5ba40b5a903ee125755b, type: 3}
+  - Type: 1
+    Key: Assets/@ Project/Sprites
+    SmallIcon: {fileID: 2800000, guid: 8b9d4572a4181154cb23d95579a2fec9, type: 3}
+    LargeIcon: {fileID: 2800000, guid: 8b9d4572a4181154cb23d95579a2fec9, type: 3}
