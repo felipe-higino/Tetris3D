@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Systems.TetrisInput;
 using Libs;
+using Systems.GameShell;
 
 namespace Systems.TetrisGame
 {
@@ -30,6 +31,8 @@ namespace Systems.TetrisGame
         private float timeBetweenDashes = 0.1f;
         private GameClock dashClock;
 
+        private bool IsGamePaused => FluxInputs.Instance.GamePause.IsPaused;
+
         private void Awake()
         {
             dashClock = gameObject.AddComponent<GameClock>();
@@ -54,16 +57,25 @@ namespace Systems.TetrisGame
 
         private void OnMoveHorizontally(int direction)
         {
+            if (IsGamePaused)
+                return;
+
             pieceMovementManager.MovePieceHorizontally(direction);
         }
 
         private void RotateClockwise()
         {
+            if (IsGamePaused)
+                return;
+
             pieceMovementManager.RotatePieceClockwise(tetrisGameRules.CurrentPiece);
         }
 
         private void DashDown()
         {
+            if (IsGamePaused)
+                return;
+
             dashClock.OnClockTick += () =>
             {
                 var didMovementEnded = pieceMovementManager.MovePieceDown();
@@ -76,10 +88,11 @@ namespace Systems.TetrisGame
             dashClock.StartClock();
         }
 
-
-
         private void MoveDown()
         {
+            if (IsGamePaused)
+                return;
+
             pieceMovementManager.MovePieceDown();
         }
     }
