@@ -90,15 +90,24 @@ namespace Systems.TetrisGame
             if (!canControl)
                 return;
 
+            var clockEnd = false;
+            TetrisGameRules.Del_Solidify cancelClock =
+                (_, __) => clockEnd = true;
+
+            tetrisGameRules.OnSolidify += cancelClock;
+
             dashClock.OnClockTick += () =>
             {
-                //TODO: didMovementEnded false negative
-                var didMovementEnded = pieceMovementManager.MovePieceDown();
-                if (didMovementEnded)
+                // didMovementEnded false negative due to update frequency (race condition)
+                // var didMovementEnded = pieceMovementManager.MovePieceDown();
+
+                if (clockEnd)
                 {
+                    tetrisGameRules.OnSolidify -= cancelClock;
                     dashClock.StopClock();
                     dashClock.CleanAllEvents();
                 }
+                pieceMovementManager.MovePieceDown();
             };
             dashClock.StartClock();
         }

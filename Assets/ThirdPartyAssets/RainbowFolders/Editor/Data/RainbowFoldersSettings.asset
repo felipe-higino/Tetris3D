@@ -15,8 +15,8 @@ MonoBehaviour:
   Folders:
   - Type: 0
     Key: Audio
-    SmallIcon: {fileID: 2800000, guid: 4372cfb8a7d3b5b4d9b899147b193270, type: 3}
-    LargeIcon: {fileID: 2800000, guid: 65e13c9890ffa26478506eda78683d5c, type: 3}
+    SmallIcon: {fileID: 2800000, guid: 4716e98c41d647c42b3b09d0d3fb7146, type: 3}
+    LargeIcon: {fileID: 2800000, guid: 4716e98c41d647c42b3b09d0d3fb7146, type: 3}
   - Type: 0
     Key: Editor
     SmallIcon: {fileID: 2800000, guid: ec2951dbd8c22234c8fdf92529d860fd, type: 3}

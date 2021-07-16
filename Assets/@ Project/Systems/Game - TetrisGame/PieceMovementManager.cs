@@ -50,7 +50,7 @@ namespace Systems.TetrisGame
         /// 
         /// </summary>
         /// <returns> Did movement ended? </returns>
-        public bool MovePieceDown()
+        public void MovePieceDown()
         {
             tetrisPieceMask.MoveMaskDown(pieceCells,
                 out var deslocation, out var didMovementEnded);
@@ -77,8 +77,6 @@ namespace Systems.TetrisGame
 
             //gizmos
             UpdateGridGizmos();
-
-            return didMovementEnded;
         }
 
         public void MovePieceHorizontally(int direction)
