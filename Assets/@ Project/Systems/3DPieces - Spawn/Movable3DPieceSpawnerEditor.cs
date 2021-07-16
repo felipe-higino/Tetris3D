@@ -2,7 +2,7 @@
 
 using UnityEngine;
 using UnityEditor;
-using Systems.Tetris.Model;
+using Systems.TetrisModel;
 
 namespace Systems.Pieces3D
 {

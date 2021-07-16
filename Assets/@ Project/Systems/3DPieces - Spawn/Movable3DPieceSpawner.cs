@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Systems.Tetris.Model;
+using Systems.TetrisModel;
 
 namespace Systems.Pieces3D
 {

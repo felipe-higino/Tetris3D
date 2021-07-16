@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Systems.TetrisGame;
-using Systems.Tetris.Model;
+using Systems.TetrisModel;
 using Libs;
 
 namespace Systems.Pieces3D
@@ -117,10 +117,14 @@ namespace Systems.Pieces3D
         {
             foreach (var position in positions)
             {
-                var instance = solid3DCellSpawner.InstantiateSolidCell(tetrisPiece);
+                var instance = solid3DCellSpawner
+                    .InstantiateSolidCell(tetrisPiece);
+
                 if (null == instance)
                     return;
-                instance.transform.SetPositionAndRotation(CenterPositions[position.y, position.x], Quaternion.identity);
+
+                var cellPosition = CenterPositions[position.y, position.x];
+                instance.transform.localPosition = new Vector3(cellPosition.x, cellPosition.y, 0);
                 instance.gameObject.SetActive(true);
                 SolidCellsMatrix[position.y, position.x] = instance;
             }

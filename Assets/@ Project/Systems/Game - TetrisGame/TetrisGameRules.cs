@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Systems.GridSystem;
-using Systems.Tetris.Model;
+using Systems.TetrisModel;
 using Systems.TetrisInput;
 using Libs;
 
