@@ -8,13 +8,24 @@ namespace UIComponents.Pagination
 
     public class UIPage : MonoBehaviour
     {
+        private enum Snap
+        {
+            MAINTAIN_POSITION,
+            PARENT_POSITION,
+            GROUP_POSITION
+        }
+
         [SerializeField]
         private UIPagination manager;
+        [SerializeField]
+        private Snap SnapTo = Snap.MAINTAIN_POSITION;
 
         [SerializeField]
         private UnityEvent ShowCallbacks;
         [SerializeField]
         private UnityEvent HideCallbacks;
+
+
 
         private bool isShown;
 
@@ -56,11 +67,24 @@ namespace UIComponents.Pagination
                 return;
             manager.AssignPage(this);
 
-            var root = manager.SpawnRoot;
-            if (null == root)
-                return;
 
-            transform.SetPositionAndRotation(root.position, root.rotation);
+            switch (SnapTo)
+            {
+                case Snap.GROUP_POSITION:
+                    var root = manager.SpawnRoot;
+                    if (null == root)
+                        break;
+                    transform.SetPositionAndRotation(root.position, root.rotation);
+                    break;
+
+                case Snap.PARENT_POSITION:
+                    var parent = transform.parent.transform;
+                    transform.SetPositionAndRotation(parent.position, parent.rotation);
+                    break;
+                case Snap.MAINTAIN_POSITION:
+                default:
+                    break;
+            }
         }
     }
 }

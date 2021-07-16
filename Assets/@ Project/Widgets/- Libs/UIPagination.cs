@@ -13,6 +13,7 @@ namespace UIComponents.Pagination
 
         public Transform SpawnRoot => spawnRoot;
         private UIPage lastShown;
+        private UIPage currentlyShowing;
 
         public void HideGroup()
         {
@@ -22,7 +23,7 @@ namespace UIComponents.Pagination
             }
         }
 
-        public void ShowGroup()
+        public void ShowLast()
         {
             ShowOnly(lastShown);
         }
@@ -38,7 +39,8 @@ namespace UIComponents.Pagination
             {
                 if (p == page)
                 {
-                    lastShown = page;
+                    lastShown = currentlyShowing;
+                    currentlyShowing = page;
                     page?.ShowPage();
                     continue;
                 }
