@@ -9,10 +9,9 @@ namespace Systems.TetrisGame
 {
     public class PieceMovementManager : MonoBehaviour
     {
-
         public event Action OnPieceMoveDown;
         public event Action<int> OnPieceMoveHorizontally;
-        public event Action<Degrees> OnPieceRotate;
+        public event Action<Degrees, int> OnPieceRotate;
         public event Action<Vector2Int[]> OnPieceRequireSolidify;
 
         [SerializeField]
@@ -120,14 +119,14 @@ namespace Systems.TetrisGame
             var requiredRotation = (Degrees)GetNextRotationIndex();
             tetrisPieceMask.RotateMask(pieceCells, piecePivot, tetrisPiece,
                 requiredRotation, out var newCells, out var newPivot,
-                out var didChangeRotation);
+                out var didChangeRotation, out var fixPosition);
 
             pieceCells = newCells;
             piecePivot = newPivot;
             if (didChangeRotation)
             {
                 rotationMemory = requiredRotation;
-                OnPieceRotate?.Invoke(requiredRotation);
+                OnPieceRotate?.Invoke(requiredRotation, fixPosition);
             }
 
             UpdateGridGizmos();

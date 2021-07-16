@@ -142,9 +142,9 @@ namespace Systems.Pieces3D
             movable3DPieceSpawner.Current3DPiece?.MoveHorizontally(direction);
         }
 
-        private void OnPieceRotate(Degrees degree)
+        private void OnPieceRotate(Degrees degree, int fixPosition)
         {
-            movable3DPieceSpawner.Current3DPiece?.Rotate(degree);
+            movable3DPieceSpawner.Current3DPiece?.Rotate(degree, fixPosition);
         }
 
 
@@ -158,27 +158,6 @@ namespace Systems.Pieces3D
                 {
                     SolidCellsMatrix[row, column]?.Destruct();
                     SolidCellsMatrix[row, column] = null;
-                }
-            }
-        }
-
-        private void PrintMatrix()
-        {
-            var currentRows = SolidCellsMatrix.GetLength(0);
-            var currentColumns = SolidCellsMatrix.GetLength(1);
-            for (int row = 0; row < currentRows; row++)
-            {
-                for (int column = 0; column < currentColumns; column++)
-                {
-                    var cell = SolidCellsMatrix[row, column];
-                    if (null == cell)
-                    {
-                        Debug.Log($"({column}, {row}) : null");
-                    }
-                    else
-                    {
-                        Debug.Log($"({column}, {row}) : {cell.name}");
-                    }
                 }
             }
         }

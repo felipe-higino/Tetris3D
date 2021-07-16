@@ -13,7 +13,7 @@ namespace Systems.TetrisGame
     public class TetrisGameRules : MonoBehaviour
     {
         public delegate void Del_Solidify(SO_TetrisPiece data, Vector2Int[] positions);
-        public delegate void Del_Rows(int[] RowsDeleted);
+        public delegate void Del_Rows(int[] rowsDeleted);
 
         public event Action OnGameStart;
         public event Del_Rows OnGridCompress;

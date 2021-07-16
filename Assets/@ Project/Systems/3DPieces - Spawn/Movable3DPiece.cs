@@ -34,7 +34,7 @@ namespace Systems.Pieces3D
             }
         }
 
-        public void Rotate(Degrees degrees)
+        public void Rotate(Degrees degrees, int fixPosition)
         {
             var angle = degrees switch
             {
@@ -46,6 +46,7 @@ namespace Systems.Pieces3D
             };
 
             transform.localRotation = Quaternion.Euler(0, 0, -angle);
+            transform.localPosition += new Vector3(fixPosition, 0, 0);
         }
 
         private void Awake()

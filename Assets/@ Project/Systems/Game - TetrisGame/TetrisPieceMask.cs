@@ -115,7 +115,7 @@ namespace Systems.TetrisGame
         //----------------------------------- ROTATION MOVEMENT
         public void RotateMask(Vector2Int[] originalCells, Vector2Int originalPivot,
             SO_TetrisPiece tetrisPiece, Degrees degree,
-            out Vector2Int[] newCells, out Vector2Int newPivot, out bool didChangeRotation)
+            out Vector2Int[] newCells, out Vector2Int newPivot, out bool didChangeRotation, out int fixPosition)
         {
             //Switch expression C#8
             var cellsLocalPositions = degree switch
@@ -197,6 +197,7 @@ namespace Systems.TetrisGame
                         originalPivot.y);
 
                 didChangeRotation = true;
+                fixPosition = +1;
             }
             else if (checkCollidedWithRightWall)
             {
@@ -214,6 +215,7 @@ namespace Systems.TetrisGame
                         originalPivot.y);
 
                 didChangeRotation = true;
+                fixPosition = -1;
             }
             else if (checkCollidedWithAnotherPiece || checkCollidedWithFloor)
             {
@@ -222,6 +224,7 @@ namespace Systems.TetrisGame
                 newPivot = originalPivot;
 
                 didChangeRotation = false;
+                fixPosition = 0;
             }
             else
             {
@@ -230,6 +233,7 @@ namespace Systems.TetrisGame
                 newPivot = originalPivot;
 
                 didChangeRotation = true;
+                fixPosition = 0;
             }
 
         }
