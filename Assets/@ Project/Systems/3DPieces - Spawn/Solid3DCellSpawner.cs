@@ -33,5 +33,13 @@ namespace Systems.Pieces3D
 
             return instance;
         }
+
+        public void DestroyAllSolidCells()
+        {
+            foreach (Transform cell in pivot)
+            {
+                Destroy(cell.gameObject);
+            }
+        }
     }
 }

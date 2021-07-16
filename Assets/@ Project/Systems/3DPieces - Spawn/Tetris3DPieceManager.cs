@@ -48,6 +48,7 @@ namespace Systems.Pieces3D
             gameRules.OnGameStart += OnGameStart;
             gameRules.OnSpawnPiece += OnSpawnPiece;
             gameRules.OnGridCompress += OnGridCompress;
+            gameRules.OnClearGame += OnClearGame;
 
             gameRules.PieceMovementManager.OnPieceRotate += OnPieceRotate;
             gameRules.PieceMovementManager.OnPieceMoveDown += OnPieceMoveDown;
@@ -61,10 +62,17 @@ namespace Systems.Pieces3D
             gameRules.OnGameStart -= OnGameStart;
             gameRules.OnSpawnPiece -= OnSpawnPiece;
             gameRules.OnGridCompress -= OnGridCompress;
+            gameRules.OnClearGame -= OnClearGame;
 
             gameRules.PieceMovementManager.OnPieceRotate -= OnPieceRotate;
             gameRules.PieceMovementManager.OnPieceMoveDown -= OnPieceMoveDown;
             gameRules.PieceMovementManager.OnPieceMoveHorizontally -= OnPieceMoveHorizontally;
+        }
+
+        private void OnClearGame()
+        {
+            movable3DPieceSpawner.DeactivateMovablePiece();
+            solid3DCellSpawner.DestroyAllSolidCells();
         }
 
         private void OnGridCompress(int[] rowsDeleted)
@@ -106,7 +114,7 @@ namespace Systems.Pieces3D
 
         private void OnGameStart()
         {
-            DestructAllSolidCells();
+            solid3DCellSpawner.DestroyAllSolidCells();
             var rows = gameRules.SolidPiecesGrid.GridSystem.RowsCount;
             var columns = gameRules.SolidPiecesGrid.GridSystem.ColumnsCount;
             SolidCellsMatrix = new Solid3DCell[rows, columns];
@@ -149,21 +157,6 @@ namespace Systems.Pieces3D
         private void OnPieceRotate(Degrees degree, int fixPosition)
         {
             movable3DPieceSpawner.Current3DPiece?.Rotate(degree, fixPosition);
-        }
-
-
-        private void DestructAllSolidCells()
-        {
-            var currentRows = SolidCellsMatrix.GetLength(0);
-            var currentColumns = SolidCellsMatrix.GetLength(1);
-            for (int row = 0; row < currentRows; row++)
-            {
-                for (int column = 0; column < currentColumns; column++)
-                {
-                    SolidCellsMatrix[row, column]?.Destruct();
-                    SolidCellsMatrix[row, column] = null;
-                }
-            }
         }
     }
 

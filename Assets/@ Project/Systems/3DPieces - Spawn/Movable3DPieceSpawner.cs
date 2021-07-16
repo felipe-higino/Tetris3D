@@ -14,6 +14,11 @@ namespace Systems.Pieces3D
 
         public Movable3DPiece Current3DPiece { get; private set; }
 
+        public void DeactivateMovablePiece()
+        {
+            Current3DPiece?.gameObject.SetActive(false);
+        }
+
         public void ActivatePiece(SO_TetrisPiece pieceToSpawn)
         {
             try

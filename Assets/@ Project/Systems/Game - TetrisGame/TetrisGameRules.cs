@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Systems.GameShell;
 using Systems.GridSystem;
 using Systems.TetrisModel;
 using Systems.TetrisInput;
@@ -16,6 +17,8 @@ namespace Systems.TetrisGame
         public delegate void Del_Rows(int[] rowsDeleted);
 
         public event Action OnGameStart;
+        public event Action OnGameOver;
+        public event Action OnClearGame;
         public event Del_Rows OnGridCompress;
         public event Del_Solidify OnSolidify;
         public event Action<SO_TetrisPiece> OnSpawnPiece;
@@ -48,9 +51,16 @@ namespace Systems.TetrisGame
         [ContextMenu("start new game")]
         public void StartNewGame()
         {
-            ClearSolidPieces();
+            ClearLogicSolidPieces();
             SpawnNewPiece();
+            FluxInputs.Instance.GamePause.UnpauseGame();
             OnGameStart?.Invoke();
+        }
+
+        public void ClearGame()
+        {
+            ClearLogicSolidPieces();
+            OnClearGame?.Invoke();
         }
 
         private void Awake()
@@ -125,7 +135,7 @@ namespace Systems.TetrisGame
 
         }
 
-        private void ClearSolidPieces()
+        private void ClearLogicSolidPieces()
         {
             solidPiecesGrid.GridSystem.ClearGrid();
             solidPiecesGrid.UpdateGizmosWithSolidCells();
@@ -172,15 +182,16 @@ namespace Systems.TetrisGame
 
             if (endGame)
             {
-                EndGame();
+                GameOver();
             }
 
             return endGame;
         }
 
-        private void EndGame()
+        private void GameOver()
         {
             Debug.Log("GAME FINISHED!");
+            OnGameOver?.Invoke();
         }
 
         //TODO: score mark (line check)

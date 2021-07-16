@@ -35,6 +35,10 @@ namespace UIComponents.Pagination
 
         public void ShowOnly(UIPage page)
         {
+            if (null == page)
+            {
+                return;
+            }
             foreach (var p in pages)
             {
                 if (p == page)
