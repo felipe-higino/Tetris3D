@@ -9,12 +9,12 @@ namespace Systems.GameShell.Pause
     {
         public void DO_Pause()
         {
-            FluxInputs.Instance.GamePause.PauseGame();
+            GameLoopManager.Instance.GamePause.PauseGame();
         }
 
         public void DO_Unpause()
         {
-            FluxInputs.Instance.GamePause.UnpauseGame();
+            GameLoopManager.Instance.GamePause.UnpauseGame();
         }
     }
 }

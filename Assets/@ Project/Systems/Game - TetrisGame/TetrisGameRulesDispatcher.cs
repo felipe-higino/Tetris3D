@@ -19,13 +19,13 @@ namespace Systems.TetrisGame
         private void Awake()
         {
             gameRules.OnGameStart += _OnGameStart;
-            gameRules.OnGameOver += _OnGameEnd;
+            gameRules.OnGameOver += _OnGameOver;
         }
 
         private void OnDestroy()
         {
             gameRules.OnGameStart -= _OnGameStart;
-            gameRules.OnGameOver -= _OnGameEnd;
+            gameRules.OnGameOver -= _OnGameOver;
         }
 
         private void _OnGameStart()
@@ -33,7 +33,7 @@ namespace Systems.TetrisGame
             OnGameStart?.Invoke();
         }
 
-        private void _OnGameEnd()
+        private void _OnGameOver()
         {
             OnGameOver?.Invoke();
         }

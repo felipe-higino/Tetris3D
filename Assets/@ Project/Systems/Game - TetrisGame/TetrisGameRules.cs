@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Systems.GameShell;
 using Systems.GridSystem;
 using Systems.TetrisModel;
 using Systems.TetrisInput;
@@ -53,10 +52,10 @@ namespace Systems.TetrisGame
         {
             ClearLogicSolidPieces();
             SpawnNewPiece();
-            FluxInputs.Instance.GamePause.UnpauseGame();
             OnGameStart?.Invoke();
         }
 
+        //called by unity events, registered in scene
         public void ClearGame()
         {
             ClearLogicSolidPieces();
@@ -69,13 +68,13 @@ namespace Systems.TetrisGame
             pieceFallClock.clock = pieceFallClockInterval;
 
             pieceFallClock.OnClockTick += OnPieceFall;
-            pieceMovementManager.OnPieceRequireSolidify += OnSolidifyPiece;
+            pieceMovementManager.OnPieceRequireSolidify += OnPieceRequiredSolidify;
         }
 
         private void OnDestroy()
         {
             pieceFallClock.OnClockTick -= OnPieceFall;
-            pieceMovementManager.OnPieceRequireSolidify -= OnSolidifyPiece;
+            pieceMovementManager.OnPieceRequireSolidify -= OnPieceRequiredSolidify;
         }
 
         private void OnPieceFall()
@@ -85,7 +84,7 @@ namespace Systems.TetrisGame
                 pieceMovementManager.MovePieceDown();
         }
 
-        private void OnSolidifyPiece(Vector2Int[] pieceCells)
+        private void OnPieceRequiredSolidify(Vector2Int[] pieceCells)
         {
             foreach (var cell in pieceCells)
             {
@@ -193,7 +192,5 @@ namespace Systems.TetrisGame
             Debug.Log("GAME FINISHED!");
             OnGameOver?.Invoke();
         }
-
-        //TODO: score mark (line check)
     }
 }

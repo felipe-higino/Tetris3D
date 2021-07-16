@@ -16,12 +16,12 @@ namespace Systems.GameShell.Pause
 
         private void Awake()
         {
-            FluxInputs.Instance.GamePause.OnGamePauseSetted += OnPauseSet;
+            GameLoopManager.Instance.GamePause.OnGamePauseSetted += OnPauseSet;
         }
 
         private void OnDestroy()
         {
-            FluxInputs.Instance.GamePause.OnGamePauseSetted -= OnPauseSet;
+            GameLoopManager.Instance.GamePause.OnGamePauseSetted -= OnPauseSet;
         }
 
         private void OnPauseSet(bool isPaused)

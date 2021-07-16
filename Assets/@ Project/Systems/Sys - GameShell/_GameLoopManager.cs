@@ -6,10 +6,10 @@ using Systems.GameShell.Pause;
 
 namespace Systems.GameShell
 {
-    public class FluxInputs
+    public class GameLoopManager
     {
         //singleton
-        public static FluxInputs Instance { get; private set; }
+        public static GameLoopManager Instance { get; private set; }
 
         private KeyCode pauseKeycode = KeyCode.Escape;
         public A_GamePause GamePause { get; private set; }
@@ -17,7 +17,7 @@ namespace Systems.GameShell
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Init()
         {
-            Instance = new FluxInputs();
+            Instance = new GameLoopManager();
             Instance.GamePause = new GamePauseDefault();
 
             var updateFont = new GameObject("[Flux Inputs]");

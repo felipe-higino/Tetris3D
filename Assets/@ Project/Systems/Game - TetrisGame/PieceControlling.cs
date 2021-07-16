@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Systems.TetrisInput;
 using Libs;
-using Systems.GameShell;
 
 namespace Systems.TetrisGame
 {
@@ -22,7 +21,6 @@ namespace Systems.TetrisGame
         [SerializeField]
         private TetrisGameRules tetrisGameRules;
 
-
         [Header("Parameters")]
         [Space(15)]
         [SerializeField]
@@ -31,7 +29,7 @@ namespace Systems.TetrisGame
         private float timeBetweenDashes = 0.1f;
         private GameClock dashClock;
 
-        private bool IsGamePaused => FluxInputs.Instance.GamePause.IsPaused;
+        private bool canControl = false;
 
         private void Awake()
         {
@@ -45,6 +43,9 @@ namespace Systems.TetrisGame
             inputs.OnRotateClockwise += RotateClockwise;
             inputs.OnDash += DashDown;
             inputs.OnMoveDown += MoveDown;
+
+            tetrisGameRules.OnGameStart += OnGameStart;
+            tetrisGameRules.OnGameOver += OnGameOver;
         }
 
         private void OnDestroy()
@@ -53,11 +54,24 @@ namespace Systems.TetrisGame
             inputs.OnRotateClockwise -= RotateClockwise;
             inputs.OnDash -= DashDown;
             inputs.OnMoveDown -= MoveDown;
+
+            tetrisGameRules.OnGameStart -= OnGameStart;
+            tetrisGameRules.OnGameOver -= OnGameOver;
+        }
+
+        private void OnGameStart()
+        {
+            canControl = true;
+        }
+
+        private void OnGameOver()
+        {
+            canControl = false;
         }
 
         private void OnMoveHorizontally(int direction)
         {
-            if (IsGamePaused)
+            if (!canControl)
                 return;
 
             pieceMovementManager.MovePieceHorizontally(direction);
@@ -65,7 +79,7 @@ namespace Systems.TetrisGame
 
         private void RotateClockwise()
         {
-            if (IsGamePaused)
+            if (!canControl)
                 return;
 
             pieceMovementManager.RotatePieceClockwise(tetrisGameRules.CurrentPiece);
@@ -73,7 +87,7 @@ namespace Systems.TetrisGame
 
         private void DashDown()
         {
-            if (IsGamePaused)
+            if (!canControl)
                 return;
 
             dashClock.OnClockTick += () =>
@@ -90,7 +104,7 @@ namespace Systems.TetrisGame
 
         private void MoveDown()
         {
-            if (IsGamePaused)
+            if (!canControl)
                 return;
 
             pieceMovementManager.MovePieceDown();

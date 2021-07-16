@@ -9,18 +9,18 @@ namespace Systems.GameShell.Pause
     {
         public override void PauseGame()
         {
-            // Debug.Log("paused");
-            Time.timeScale = 0f;
-
+            if (!CanPause)
+                return;
             base.PauseGame();
+            Time.timeScale = 0f;
         }
 
         public override void UnpauseGame()
         {
-            // Debug.Log("unpaused");
-            Time.timeScale = 1f;
-
+            if (!CanPause)
+                return;
             base.UnpauseGame();
+            Time.timeScale = 1f;
         }
     }
 
