@@ -13,7 +13,7 @@ namespace Systems.TetrisGame
 
         //----------------------------------- VERTICAL MOVEMENT
         public void MoveMaskDown(Vector2Int[] currentCells,
-            out Vector2Int deslocation, out bool didMovementEnded)
+            out int deslocation, out bool didMovementEnded)
         {
             var maskCopy = new List<Vector2Int>(currentCells);
 
@@ -41,12 +41,12 @@ namespace Systems.TetrisGame
 
             if (collidedWithFloor || collidedwithAnotherPiece)
             {
-                deslocation = new Vector2Int(0, 0);
+                deslocation = 0;
                 didMovementEnded = true;
             }
             else
             {
-                deslocation = new Vector2Int(0, -1);
+                deslocation = -1;
                 didMovementEnded = false;
             }
         }

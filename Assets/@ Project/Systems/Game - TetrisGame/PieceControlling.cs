@@ -92,6 +92,7 @@ namespace Systems.TetrisGame
 
             dashClock.OnClockTick += () =>
             {
+                //TODO: didMovementEnded false negative
                 var didMovementEnded = pieceMovementManager.MovePieceDown();
                 if (didMovementEnded)
                 {

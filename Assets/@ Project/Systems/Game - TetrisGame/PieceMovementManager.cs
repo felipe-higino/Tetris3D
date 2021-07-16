@@ -59,12 +59,12 @@ namespace Systems.TetrisGame
             for (int i = 0; i < pieceCells.Length; i++)
             {
                 pieceCells[i] = new Vector2Int(
-                    pieceCells[i].x + deslocation.x,
-                    pieceCells[i].y + deslocation.y);
+                    pieceCells[i].x,
+                    pieceCells[i].y + deslocation);
             }
             piecePivot = new Vector2Int(
-                    piecePivot.x + deslocation.x,
-                    piecePivot.y + deslocation.y);
+                    piecePivot.x,
+                    piecePivot.y + deslocation);
 
             if (didMovementEnded)
             {

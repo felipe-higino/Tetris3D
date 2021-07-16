@@ -65,6 +65,7 @@ namespace Systems.TetrisInput
         {
             if (Input.GetKeyDown(DashKeycode))
             {
+                Debug.Log("dash");
                 OnDash?.Invoke();
             }
 
