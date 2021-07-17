@@ -35,8 +35,8 @@ MonoBehaviour:
     LargeIcon: {fileID: 2800000, guid: b88339035f924f94eab1e64bac79149f, type: 3}
   - Type: 0
     Key: Fonts
-    SmallIcon: {fileID: 2800000, guid: 0e6fd3e5ce3c5ba40b5a903ee125755b, type: 3}
-    LargeIcon: {fileID: 2800000, guid: 0e6fd3e5ce3c5ba40b5a903ee125755b, type: 3}
+    SmallIcon: {fileID: 2800000, guid: f1e979b083f2db04996bc52433d8cc4f, type: 3}
+    LargeIcon: {fileID: 2800000, guid: f1e979b083f2db04996bc52433d8cc4f, type: 3}
   - Type: 0
     Key: Icons
     SmallIcon: {fileID: 2800000, guid: 27bb0c12d809b1e4fb2851723d50cde6, type: 3}
