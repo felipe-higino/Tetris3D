@@ -25,8 +25,6 @@ namespace Systems.TetrisGame
         [Space(15)]
         [SerializeField]
         private float dashClockInterval = 0.05f;
-        [SerializeField]
-        private float timeBetweenDashes = 0.1f;
         private GameClock dashClock;
 
         private bool canControl = false;

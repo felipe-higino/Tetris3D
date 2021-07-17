@@ -185,7 +185,6 @@ namespace Systems.TetrisGame
 
         private void GameOver()
         {
-            Debug.Log("GAME FINISHED!");
             OnGameOver?.Invoke();
         }
     }
