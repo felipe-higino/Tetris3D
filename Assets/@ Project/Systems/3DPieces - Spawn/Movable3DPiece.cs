@@ -10,6 +10,8 @@ namespace Systems.Pieces3D
         [SerializeField]
         private SO_TetrisPiece tetrisPieceData;
         public SO_TetrisPiece TetrisPieceData => tetrisPieceData;
+        [SerializeField]
+        private bool resetTransform = true;
 
         private Vector3 originalPosition;
 
@@ -56,8 +58,11 @@ namespace Systems.Pieces3D
 
         private void OnDisable()
         {
-            transform.localPosition = originalPosition;
-            transform.localRotation = Quaternion.identity;
+            if (resetTransform)
+            {
+                transform.localPosition = originalPosition;
+                transform.localRotation = Quaternion.identity;
+            }
         }
 
     }

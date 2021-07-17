@@ -8,23 +8,41 @@ namespace Systems.TetrisGame
 {
     public class RandomizeTetrisPiece : MonoBehaviour
     {
-        public event Action<SO_TetrisPiece> OnRandomizedPieceChanged;
+        public event Action OnRandomizedPieceChanged;
 
         [SerializeField]
         private List<SO_TetrisPiece> piecesList;
 
-        public SO_TetrisPiece Piece { get; private set; }
+        public SO_TetrisPiece CurrentPiece { get; private set; }
+        public SO_TetrisPiece NextPiece { get; private set; }
 
-        public void RandomizePiece()
+        private void Awake()
+        {
+            CurrentPiece = GetRandomPiece();
+
+        }
+        public void RandomizeNextPiece()
+        {
+            if (null == NextPiece)
+            {
+                NextPiece = GetRandomPiece();
+            }
+
+            CurrentPiece = NextPiece;
+            NextPiece = GetRandomPiece();
+
+            OnRandomizedPieceChanged?.Invoke();
+        }
+
+        private SO_TetrisPiece GetRandomPiece()
         {
             if (piecesList.Count == 0)
-                return;
+                return null;
 
             var randomIndex = UnityEngine.Random.Range(0, piecesList.Count);
-            var piece = piecesList[randomIndex];
+            var randomPiece = piecesList[randomIndex];
 
-            Piece = piece;
-            OnRandomizedPieceChanged?.Invoke(piece);
+            return randomPiece;
         }
     }
 }

@@ -150,16 +150,12 @@ namespace Systems.TetrisGame
             }
 
             pieceFallClock.StartClock();
-            if (pieceRandomizer.Piece == null)
-            {
-                pieceRandomizer.RandomizePiece();
-            }
+            pieceRandomizer.RandomizeNextPiece();
 
-            pieceMovementManager.SpawnPiece(pieceRandomizer.Piece);
-            OnSpawnPiece?.Invoke(pieceRandomizer.Piece);
+            pieceMovementManager.SpawnPiece(pieceRandomizer.CurrentPiece);
+            OnSpawnPiece?.Invoke(pieceRandomizer.CurrentPiece);
 
-            CurrentPiece = pieceRandomizer.Piece;
-            pieceRandomizer.RandomizePiece();
+            CurrentPiece = pieceRandomizer.CurrentPiece;
         }
 
         private bool CheckEndGame()
