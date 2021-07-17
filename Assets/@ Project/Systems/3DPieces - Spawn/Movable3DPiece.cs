@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Systems.TetrisModel;
+using DG.Tweening;
 
 namespace Systems.Pieces3D
 {
@@ -47,7 +48,10 @@ namespace Systems.Pieces3D
                 _ => 0
             };
 
-            transform.localRotation = Quaternion.Euler(0, 0, -angle);
+            transform.DOKill();
+            transform.DOLocalRotate(new Vector3(0, 0, -angle), 0.1f);
+
+            // transform.localRotation = Quaternion.Euler(0, 0, -angle);
             transform.localPosition += new Vector3(fixPosition, 0, 0);
         }
 

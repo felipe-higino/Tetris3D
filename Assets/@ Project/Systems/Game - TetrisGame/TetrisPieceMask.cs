@@ -197,7 +197,7 @@ namespace Systems.TetrisGame
                         originalPivot.y);
 
                 didChangeRotation = true;
-                fixPosition = +1;
+                fixPosition = -indexExceedingLeftWall;
             }
             else if (checkCollidedWithRightWall)
             {
@@ -215,7 +215,7 @@ namespace Systems.TetrisGame
                         originalPivot.y);
 
                 didChangeRotation = true;
-                fixPosition = -1;
+                fixPosition = -amountToDeslocate;
             }
             else if (checkCollidedWithAnotherPiece || checkCollidedWithFloor)
             {
