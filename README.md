@@ -1,3 +1,3 @@
 # Tetris3D
 
-### A game made to Kokku Test
+### A 3D game made with Unity in 5 days
