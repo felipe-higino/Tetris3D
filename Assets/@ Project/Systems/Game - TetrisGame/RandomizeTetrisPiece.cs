@@ -20,7 +20,7 @@ namespace Systems.TetrisGame
             if (piecesList.Count == 0)
                 return;
 
-            var randomIndex = UnityEngine.Random.Range(0, piecesList.Count - 1);
+            var randomIndex = UnityEngine.Random.Range(0, piecesList.Count);
             var piece = piecesList[randomIndex];
 
             Piece = piece;
