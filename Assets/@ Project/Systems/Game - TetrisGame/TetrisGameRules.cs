@@ -47,11 +47,14 @@ namespace Systems.TetrisGame
 
         private GameClock pieceFallClock;
 
+        public bool IsPlaying { get; private set; }
+
         [ContextMenu("start new game")]
         public void StartNewGame()
         {
             ClearLogicSolidPieces();
             SpawnNewPiece();
+            IsPlaying = true;
             OnGameStart?.Invoke();
         }
 
@@ -59,6 +62,7 @@ namespace Systems.TetrisGame
         public void ClearGame()
         {
             ClearLogicSolidPieces();
+            IsPlaying = false;
             OnClearGame?.Invoke();
         }
 
@@ -185,6 +189,7 @@ namespace Systems.TetrisGame
 
         private void GameOver()
         {
+            IsPlaying = false;
             OnGameOver?.Invoke();
         }
     }

@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Systems.TetrisGame;
 
 namespace Systems.TetrisInput
 {
     public class InputsDispatcher : MonoBehaviour
     {
+        [SerializeField]
+        private TetrisGameRules gameRules;
+
         [SerializeField]
         private UnityEvent OnMoveHorizontally;
 
@@ -20,6 +24,8 @@ namespace Systems.TetrisInput
         [SerializeField]
         private UnityEvent OnDash;
 
+        private bool isPlaying => gameRules.IsPlaying;
+
         private void Start()
         {
             var inputs = A_TetrisInput.Instance;
@@ -28,6 +34,7 @@ namespace Systems.TetrisInput
             inputs.OnRotateClockwise += _OnRotateClockwise;
             inputs.OnMoveDown += _OnMoveDown;
             inputs.OnDash += _OnDash;
+
         }
 
         private void OnDestroy()
@@ -42,22 +49,26 @@ namespace Systems.TetrisInput
 
         private void _OnMoveHorizontally(int obj)
         {
-            OnMoveHorizontally?.Invoke();
+            if (isPlaying)
+                OnMoveHorizontally?.Invoke();
         }
 
         private void _OnRotateClockwise()
         {
-            OnRotateClockwise?.Invoke();
+            if (isPlaying)
+                OnRotateClockwise?.Invoke();
         }
 
         private void _OnMoveDown()
         {
-            OnMoveDown?.Invoke();
+            if (isPlaying)
+                OnMoveDown?.Invoke();
         }
 
         private void _OnDash()
         {
-            OnDash?.Invoke();
+            if (isPlaying)
+                OnDash?.Invoke();
         }
     }
 
