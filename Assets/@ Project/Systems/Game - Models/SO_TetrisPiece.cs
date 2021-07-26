@@ -3,10 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Systems.GridSystem;
-
-#if UNITY_EDITOR
 using CreationTools;
-#endif
 
 namespace Systems.TetrisModel
 {
@@ -39,11 +36,10 @@ namespace Systems.TetrisModel
         public Vector2Int PieceFullBox => pieceFullBox;
         public Material Material => material;
 
-#if UNITY_EDITOR
-
         [SerializeField]
         private PieceCreationTool creationTool;
 
+#if UNITY_EDITOR
         [ContextMenu("Copy Data From Creation Tool")]
         public void CopyDataFromCreationTool()
         {

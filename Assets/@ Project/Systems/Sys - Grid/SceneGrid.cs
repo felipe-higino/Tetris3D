@@ -75,8 +75,6 @@ namespace Systems.GridSystem
             return positions;
         }
 
-#if UNITY_EDITOR
-
         [Header("Gizmos")]
         [Space(15)]
         [SerializeField]
@@ -103,6 +101,7 @@ namespace Systems.GridSystem
         //grid gizmos
         private void OnDrawGizmos()
         {
+#if UNITY_EDITOR
             var verticalDirection = origin.up;
             var horizontalDirection = origin.right;
 
@@ -152,9 +151,8 @@ namespace Systems.GridSystem
 
                 }
             }
-        }
-
 #endif
+        }
     }
 
 
